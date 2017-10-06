@@ -11,13 +11,20 @@
 
         vm.login = login;
 
+        var foo = {
+            username: "aretw0",
+            password: "bikeshare18"
+        }
+
+        vm.user = foo;
+
 
         function login(args) {
             console.log("-- login TRY --");
             sessionAPI.login(args).then(function successcallBack (response) {
                 console.log('--- SUCCESS (login) ---');
                 console.log(JSON.stringify(response));
-                $state.go('home');
+                //$state.go('home');
             },
             function errorCallback (error) {
                 console.log('--- ERROR (login) ---');

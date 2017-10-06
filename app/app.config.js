@@ -7,13 +7,15 @@
 	'use strict';
 	
 
-	angular.module('app').config(config);
+	angular.module('ufersavdb').config(config);
 	
-	function config(localStorageServiceProvider){
+	function config(localStorageServiceProvider, $httpProvider){
 		localStorageServiceProvider.setPrefix('ufvdb').setNotify(true, true);
+
+		$httpProvider.interceptors.push("apiIntercept");
 	}
 	
-	config.$inject = ['localStorageServiceProvider'];
+	config.$inject = ['localStorageServiceProvider','$httpProvider'];
 	
 
 })(angular);
