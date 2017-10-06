@@ -12,7 +12,8 @@ gulp.task('index', function () {
     var module = gulp.src('./app/app.module.js', {read: false});
     var app = gulp.src(['./app/*.js','!./app/app.module.js'], {read: false});
     var components = gulp.src('./app/components/**/*.js', {read: false});
-    var services = gulp.src('./app/services/**/*.js', {read: false});
+    var servicesAPI = gulp.src('./app/services/api/*.js', {read: false});
+    var servicesTOOLS = gulp.src('./app/services/tools/*.js', {read: false});
 
     // example
     //var general = gulp.src(['./app/**/*.js', '!./app/services/*.js'], {read: false});
@@ -22,7 +23,8 @@ gulp.task('index', function () {
 
     return target.pipe(inject(module,{name:'module'}))
         .pipe(inject(app,{name:'app'}))
-        .pipe(inject(services,{name:'service'}))
+        .pipe(inject(servicesAPI,{name:'api'}))
+        .pipe(inject(servicesTOOLS,{name:'tools'}))
         .pipe(inject(components,{name:'components'}))
         .pipe(inject(css))
         .pipe(gulp.dest(''));

@@ -6,16 +6,25 @@
 
     angular.module('ufersavdb').controller('appCtrl', appCtrl);
 
-    function appCtrl() {
+    function appCtrl(sessionAPI, $state) {
         var vm = this;
 
         vm.login = login;
 
 
-        function login(user) {
-
+        function login(args) {
+            console.log("-- login TRY --");
+            sessionAPI.login(args).then(function successcallBack (response) {
+                console.log('--- SUCCESS (login) ---');
+                console.log(JSON.stringify(response));
+                $state.go('home');
+            },
+            function errorCallback (error) {
+                console.log('--- ERROR (login) ---');
+                console.log(JSON.stringify(error));
+            })
         }
     }
 
-    //appCtrl.$inject = [];
+    appCtrl.$inject = ['sessionAPI','$state'];
 })(angular);

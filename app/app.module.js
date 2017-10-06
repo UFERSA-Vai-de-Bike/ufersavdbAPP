@@ -4,6 +4,6 @@
 (function () {
     'use strict';
 
-    angular.module("ufersavdb",['ui.router','ngMaterial']);
+    angular.module("ufersavdb",['ui.router','ngMaterial','LocalStorageModule']);
 
 })();
