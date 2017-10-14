@@ -35,13 +35,13 @@
             return $http.get(rota + "/users/log");
         }
         function _getInfo(id) {
-            return $http.get(rota + "/users/info" + id);
+            return $http.get(rota + "/users/info/" + id);
         }
         function _getInfos() {
             return $http.get(rota + "/users/info");
         }
         function _remove(id) {
-            return $http.delete(rota + "/users" + id);
+            return $http.delete(rota + "/users/" + id);
         }
         function _updateInfo(data) {
             return $http.post(rota + "/users/info",data);
@@ -59,7 +59,7 @@
             return $http.get(rota + "/users/val");
         }
         function _get(id) {
-            return $http.get(rota + "/users" + id);
+            return $http.get(rota + "/users/" + id);
         }
         function _getAll() {
             return $http.get(rota + "/users");
