@@ -25,7 +25,7 @@ gulp.task('index', function () {
         .pipe(inject(app,{name:'app'}))
         .pipe(inject(servicesAPI,{name:'api'}))
         .pipe(inject(servicesTOOLS,{name:'tools'}))
-        .pipe(inject(components,{name:'components'}))
+        .pipe(inject(components,{name:'component'}))
         .pipe(inject(css))
         .pipe(gulp.dest(''));
 });

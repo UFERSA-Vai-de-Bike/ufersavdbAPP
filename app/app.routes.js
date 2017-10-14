@@ -19,6 +19,13 @@
                     /*resolve: {
                         skipIfAuthenticated: _skipIfAuthenticated
                     }*/
+                })
+                .state('home', {
+                    url: '/home',
+                    component: 'homeComponent'
+                    /*resolve: {
+                        skipIfAuthenticated: _skipIfAuthenticated
+                    }*/
                 });
             $urlRouterProvider.otherwise('/app');
         };

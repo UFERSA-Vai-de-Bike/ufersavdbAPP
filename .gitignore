@@ -110,3 +110,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+/app/services/api/simService.js
+.idea/inspectionProfiles/
+.idea/modules.xml
+.idea/ufersavdb.iml
+.idea/vcs.xml

@@ -27,21 +27,23 @@
                     <div class="md-media-lg card-media"></div>
                 </md-card-title-media>-->
             </md-card-title>
+            <form name="loginForm">
             <md-card-content layout="column" layout-align="space-around center">
-                <form name="loginForm">
+
                     <md-input-container>
                         <label>Usuário</label>
-                        <input type="text" name="username" ng-model="vm.user.username">
+                        <input type="text" name="username" required ng-model="vm.user.username">
                     </md-input-container>
                     <md-input-container>
                         <label>Senha</label>
-                        <input type="password" name="senha" ng-model="vm.user.password">
+                        <input type="password" name="senha" required ng-model="vm.user.password">
                     </md-input-container>
-                </form>
+
             </md-card-content>
             <md-card-actions layout="row" layout-align="center center">
-                <md-button ng-click="vm.login(vm.user)">Entrar</md-button>
+                <md-button type="submit" ng-disabled="loginForm.$invalid" ng-click="vm.login(vm.user)">Entrar</md-button>
             </md-card-actions>
+            </form>
         </md-card>
     </div>
 </md-content>
