@@ -6,22 +6,22 @@
 
     angular.module('ufersavdb').controller('appCtrl', appCtrl);
 
-    function appCtrl(sessionAPI, $state) {
+    appCtrl.$inject = ['userAPI','$state'];
+    function appCtrl(userAPI, $state) {
         var vm = this;
 
         vm.login = login;
 
         var foo = {
-            username: "aretw0",
-            password: "bikeshare18"
-        }
-
+            username: "underaid",
+            password: "killingin88"
+        };
         vm.user = foo;
 
 
         function login(args) {
             console.log("-- login TRY --");
-            sessionAPI.login(args).then(function successcallBack (response) {
+            userAPI.login(args).then(function successcallBack (response) {
                 console.log('--- SUCCESS (login) ---');
                 console.log(JSON.stringify(response));
                 //$state.go('home');
@@ -32,6 +32,4 @@
             })
         }
     }
-
-    appCtrl.$inject = ['sessionAPI','$state'];
 })(angular);

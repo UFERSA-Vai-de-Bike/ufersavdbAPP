@@ -4,7 +4,8 @@
   "description": "Aplicação em AngularJS, cliente da api do projeto UFERSA Vai de Bike e que servirá para os devidos fins ao mesmo.",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -c-1 -o"
   },
   "repository": {
     "type": "git",
@@ -26,11 +27,16 @@
   },
   "homepage": "https://github.com/aretw0/ufersavdb#readme",
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.3.0",
     "http-server": "^0.10.0"
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.8",
     "angular": "^1.6.6",
-    "angular-local-storage": "^0.7.1"
+    "angular-animate": "^1.6.6",
+    "angular-aria": "^1.6.6",
+    "angular-local-storage": "^0.7.1",
+    "angular-material": "^1.1.5"
   }
 }

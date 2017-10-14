@@ -5,10 +5,10 @@
 (function (angular) {
 
 	'use strict';
-	
+
 
 	angular.module('ufersavdb').factory('apiIntercept', Factory);
-	
+
 	function Factory($q, $rootScope, storeService, $timeout){
 		var service = {
 			request: _request,
@@ -17,7 +17,7 @@
 			responseError: _responseError
 		};
 		return service;
-	
+
 		function _request (config) {
 
 			if (false) {
@@ -30,15 +30,16 @@
 					config.headers = { 'Authorization': token};
 				}
 			}
-			console.log("- Request :" + JSON.stringify(config));
+			// console.log("- Request :" + JSON.stringify(config));
 			return config;
 		}
 
 		function _response (response) {
-			console.log("- Response :" + JSON.stringify(response));
+			if (typeof response.data !== 'string')
+			    console.log("- Response :" + JSON.stringify(response));
 			return response;
 		}
-	
+
 		function _requestError (rejection) {
 			console.log("- RequestError :" + JSON.stringify(rejection));
 
@@ -51,8 +52,8 @@
 			return $q.reject(response);
 		}
 	}
-	
+
 	Factory.$inject = ['$q', '$rootScope', 'storeService', '$timeout'];
-	
+
 
 })(angular);
