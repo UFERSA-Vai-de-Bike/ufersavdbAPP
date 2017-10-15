@@ -6,8 +6,8 @@
 
     angular.module('ufersavdb').controller('appCtrl', appCtrl);
 
-    appCtrl.$inject = ['$rootScope','$state','userAPI','storeService','$mdDialog','$mdToast'];
-    function appCtrl($rootScope,$state,userAPI,storeService,$mdDialog,$mdToast) {
+    appCtrl.$inject = ['$rootScope','$state','userAPI','storeService','$mdDialog','$mdToast','modalService'];
+    function appCtrl($rootScope,$state,userAPI,storeService,$mdDialog,$mdToast,modalService) {
         var vm = this;
         var foo = {
             username: "underaid",
@@ -15,7 +15,7 @@
         };
         vm.user = foo;
         vm.login = login;
-        vm.signup = signup;
+        vm.signUp = signUp;
 
         function login(args) {
             console.log("-- login TRY --");
@@ -37,7 +37,7 @@
             })
         }
 
-        function signup(ev) {
+        function signUp(ev) {
             $mdDialog.show(modalService.signup(ev))
                 .then(function(answer) {
                     // toast('Cadastro concluido!');
@@ -46,11 +46,11 @@
                 });
         }
 
-        function toast (message) {
+        function toast(message) {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
-                    .position('right')
+                    .position('top right')
                     .hideDelay(3000)
             );
         }

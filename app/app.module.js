@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module("ufersavdb",['ui.router','ngMaterial','LocalStorageModule']).run(init);
+    angular.module("ufersavdb",['ui.router','ngMaterial','LocalStorageModule','ngPassword']).run(init);
 
     init.$inject = ["$rootScope","storeService"];
     function init($rootScope,storeService) {

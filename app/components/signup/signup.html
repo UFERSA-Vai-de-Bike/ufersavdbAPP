@@ -1,6 +1,6 @@
 <!-- Modal para Cadastrar-se -->
     <md-toolbar>
-        <div class="md-toolbar-tools">
+        <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
             <h2>Cadastro</h2>
             <md-button class="md-icon-button" ng-click="vm.cancel()" >
                 <i class="material-icons">close</i>
@@ -12,36 +12,37 @@
             <!-- 1º Tab de cadastro -->
             <md-tab label="Usuário"  ng-disabled="vm.step0">
                 <md-content class="md-padding">
-                    <div layout='column' layout-align='space-around'>
-                        <form name="firstForm" ng-cloak>
-                            <md-input-container>
+                    <form name="firstForm" ng-cloak novalidate>
+                        <md-input-group layout='column' layout-align='space-around none'>
+                            <md-input-container flex="100" flex-order="-1">
                                 <label>Usuário</label>
-                                <input required type="text" name="username" ng-model="vm.user.username">
+                                <input required ng-minlength="6" type="text" name="username" ng-model="vm.user.username">
                                 <div ng-messages="firstForm.username.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="required" ng-hide="firstForm.username.$valid">Campo obrigatório.</div>
+                                    <div ng-message="minlength" ng-hide="firstForm.username.$valid">Mínimo de 6 caracteres</div>
                                 </div>
-                                <!--<div ng-message="vm.validName(vm.user.username)"></div>-->
+                                <div ng-show="vm.validUser(vm.user.username)">
+                                    <div ng-message="">Este nome de usuário já foi escolhido!</div>
+                                </div>
                             </md-input-container>
-                            <md-input-container>
+                            <md-input-container flex="100" flex-order="0">
                                 <label>Senha</label>
-                                <input required  type="password" name="password" ng-model="vm.user.password">
-                                <div ng-messages="firstForm.password.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
+                                <input required ng-minlength="6" type="password" name="password" ng-model="vm.user.password">
+                                <div ng-messages="firstForm.password.$error" >
+                                    <div ng-message="minlength" ng-hide="firstForm.password.$valid">Mínimo de 6 caracteres</div>
                                 </div>
                             </md-input-container>
-                            <md-input-container>
+                            <md-input-container flex="100" flex-order="1">
                                 <label>Repetir Senha</label>
-                                <input type="password" name="passwordRep" ng-model="vm.passRepeat" required>
-                                <div ng-messages="firstForm.passwordRep.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
-                                </div>
-                                <div ng-show="vm.user.password !== vm.passRepeat">
-                                    <div ng-message>Senhas não coincidem.</div>
+                                <input type="password" name="passRepeat" ng-model="vm.user.passRepeat"
+                                       required match-password="password">
+                                <div ng-messages="firstForm.passRepeat.$error">
+                                    <div ng-message="passwordMatch" ng-hide="firstForm.passRepeat.$valid">Senhas não coincidem.</div>
                                 </div>
                             </md-input-container>
-                            <md-button class="md-raised" ng-disabled="firstForm.$invalid" ng-click="vm.next()">Próximo</md-button>
-                        </form>
-                    </div>
+                            <md-button type="submit" flex="100" flex-order="20" class="md-raised" ng-disabled="firstForm.$invalid" ng-click="vm.next()">Próximo</md-button>
+                        </md-input-group>
+                    </form>
                 </md-content>
             </md-tab>
             <!-- 2º Tab de cadastro-->
@@ -49,17 +50,17 @@
                 <md-content class="md-padding">
                     Fazendo cadastro para usuário: <strong>{{vm.user.username}}</strong>
                     </br>
-                    <div layout="column" layout-align="space-around">
-                        <form name="signUpForm" ng-cloak>
-                            <md-input-container>
+                    <form name="signUpForm" ng-cloak>
+                        <md-input-group layout="column" layout-align="space-around">
+                            <md-input-container flex="100" flex-order="-1">
                                 <label>Nome completo</label>
                                 <input required name="fullname" ng-model="vm.user.fullname">
                                 <div ng-messages="signUpForm.fullname.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="required" ng-hide="signUpForm.fullname.$valid">Campo obrigatório.</div>
                                 </div>
                             </md-input-container>
-                            <div layout="row" layout-align=" center">
-                                <md-input-container>
+                            <div flex="100" flex-order="0" layout="row" layout-align="space-between ">
+                                <md-input-container >
                                     <label>Sexo</label>
                                     <md-select name="sex" ng-model="vm.user.sex" required>
                                         <md-option value="M">Masculino</md-option>
@@ -67,40 +68,37 @@
                                         <md-option value="U">Indefinido</md-option>
                                     </md-select>
                                 </md-input-container>
-                                <md-input-container >
+                                <md-input-container>
                                     <label>Data de Nasc.</label>
-                                    <md-datepicker md-hide-icons="calendar"  ng-model="vm.user.birthdate" required></md-datepicker>
+                                    <md-datepicker md-hide-icons="calendar" ng-model="vm.user.birthdate" required></md-datepicker>
                                 </md-input-container>
                             </div>
-                            <md-input-container>
+                            <md-input-container flex-order="1" flex="100">
                                 <label>Ocupação</label>
                                 <input name="ocupation" ng-model="vm.user.profession">
                             </md-input-container>
-                            <md-input-container>
+                            <md-input-container flex-order="2" flex="100">
                                 <label>Email</label>
                                 <input name="email" required ng-model="vm.user.email">
                                 <div ng-messages="signUpForm.email.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="email" ng-hide="signUpForm.email.$valid">Você não entrou com um email válido...</div>
                                 </div>
                             </md-input-container>
-                            <md-input-container>
+                            <md-input-container flex="100" flex-order="3">
                                 <label>Phone</label>
-                                <input type="tel" name="phone" required ng-model="vm.user.phone">
+                                <input ng-pattern="/^\d{4,5}-\d{4}$/" type="text" name="phone" required ng-model="vm.user.phone">
                                 <div ng-messages="signUpForm.phone.$error">
-                                    <div ng-message="required">Campo obrigatório.</div>
+                                    <div ng-message="pattern" ng-hide="signUpForm.phone.$valid">Você não entrou com um telefone válido (00000-0000)</div>
                                 </div>
                             </md-input-container>
-                            <div layout="row" >
-                                <md-button type="reset" ng-click="vm.previous()">Anterior</md-button>
-                                <md-button class="md-warn md-raised" type="submit" ng-disabled="signUpForm.$invalid" ng-click="vm.signUp(vm.user)">Cadastrar-se</md-button>
+                            <div layout="row" layout-align="space-around center" flex="100" flex-order="4" >
+                                <md-button flex="30" type="reset" ng-click="vm.previous()">Anterior</md-button>
+                                <md-button flex="50" class="md-warn md-raised" type="submit" ng-disabled="signUpForm.$invalid" ng-click="vm.signUp(vm.user)">Cadastrar-se</md-button>
                             </div>
-                        </form>
-                    </div>
+                        </md-input-group>
+                    </form>
                 </md-content>
             </md-tab>
         </md-tabs>
     </md-content>
-    <md-dialog-actions layout="row" layout-align="space-between center">
-
-    </md-dialog-actions>
 </form>

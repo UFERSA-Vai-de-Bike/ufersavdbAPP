@@ -2,8 +2,8 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('homeController', HomeController);
-    HomeController.$inject = ['$rootScope','$state','storeService'];
-    function HomeController($rootScope,$state,storeService){
+    HomeController.$inject = ['$rootScope','$state','storeService','$mdToast'];
+    function HomeController($rootScope,$state,storeService,$mdToast){
         var vm = this;
 
         vm.user = $rootScope.user;
@@ -18,11 +18,11 @@
             $state.go('app');
         }
 
-        function toast (message) {
+        function toast(message) {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
-                    .position('right')
+                    .position('top right')
                     .hideDelay(3000)
             );
         }

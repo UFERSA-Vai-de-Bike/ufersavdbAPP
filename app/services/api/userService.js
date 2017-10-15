@@ -65,6 +65,8 @@
             return $http.get(config.baseUrl + "/users");
         }
         function _signup(data) {
+            /*var newdate = new Date(data.birthdate);
+            data.birthdate = newdate.getDate() + "-" + (newdate.getMonth()+1) + "-" + newdate.getFullYear();*/
             return $http.post(config.baseUrl + "/users/signup",data);
         }
         function _login (data) {

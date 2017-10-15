@@ -1,10 +1,10 @@
-(
-    function(){
+(function(angular) {
         'use strict';
 
-        angular.module("ubing").factory("modalService", modalService);
+        angular.module("ufersavdb").factory("modalService", modalService);
 
-        function modalService (){
+        //modalService.$inject= [];
+        function modalService() {
 
             var service = {
                 signup: _signup
@@ -17,7 +17,7 @@
                 para não precisar importar controller e templateURL
 
                 */
-            }
+            };
             return service;
 
             function _signup(ev) {
@@ -28,21 +28,17 @@
                     targetEvent: ev,
                     clickOutsideToClose: false
                 };
-
                 return signup;
-
             }
 
 
-        function dialogController($mdDialog) {
-            var vm = this;
-            vm.cancel = function() {
-                $mdDialog.hide();
+            function dialogController($mdDialog) {
+                var vm = this;
+                vm.cancel = function () {
+                    $mdDialog.hide();
+                }
             }
+
+            dialogController.$inject = ['$mdDialog'];
         }
-
-        dialogController.$inject = ['$mdDialog'];
-
-        //modalService.$inject= [];
-    }
-)();
+})(angular);
