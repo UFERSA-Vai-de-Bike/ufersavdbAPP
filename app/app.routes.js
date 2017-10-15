@@ -51,6 +51,27 @@
                     resolve: {
                         redirectIfNotAuthenticated: _redirectIfNotAuthenticated
                     }
+                })
+                .state('home.dash', {
+                    url: '/dash',
+                    component: 'dashComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
+                })
+                .state('home.user', {
+                    url: '/user',
+                    component: 'userComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
+                })
+                .state('home.station', {
+                    url: '/station',
+                    component: 'stationComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
                 });
             $urlRouterProvider.otherwise('/app');
         };

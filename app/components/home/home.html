@@ -1,38 +1,32 @@
 <md-content>
-    <md-toolbar class="md-hue-2">
-        <div class="md-toolbar-tools">
-            <!-- <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-                 <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-             </md-button>-->
-
-            <h2 flex md-truncate>UFERSA Vai de Bike</h2>
-
-            <!-- <md-button class="md-icon-button" aria-label="Favorite">
-                 <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-             </md-button>
-
-             <md-button class="md-icon-button" aria-label="More">
-                 <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-             </md-button>-->
+    <md-toolbar>
+        <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
+            <h2 flex md-truncate>UFERSA Vai de Bike - Olá usuário {{vm.user.username}}</h2>
+            <md-button class="md-raised md-warn" ng-click="vm.logout()">Sair</md-button>
         </div>
     </md-toolbar>
-    <div layout="row" layout-align="center space-around">
-        <md-card>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Bem vindo!</span>
-                    <span class="md-subhead">{{vm.user.username}}</span>
-                </md-card-title-text>
-                <!--<md-card-title-media>
-                    <div class="md-media-lg card-media"></div>
-                </md-card-title-media>-->
-            </md-card-title>
-            <md-card-content layout="column" layout-align="space-around center">
-                {{vm.user}}
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="center center">
-                <md-button ng-click="vm.logout()">Sair</md-button>
-            </md-card-actions>
-        </md-card>
-    </div>
+    <md-nav-bar layout="row" layout-align="center space-around" md-selected-nav-item="vm.selectedPage"
+    nav-bar-aria-label="Itens de navegação">
+        <md-nav-item name="dash" md-nav-sref="home.dash">
+            <md-tooltip md-direction="left">Dashboard</md-tooltip>
+            <md-icon class="material-icons md-36">whatshot</md-icon>
+        </md-nav-item>
+        <md-nav-item name="user" md-nav-sref="home.user">
+            <md-tooltip md-direction="bottom">Usuários</md-tooltip>
+            <md-icon class="material-icons md-36">people</md-icon></md-nav-item>
+        <md-nav-item name="stations" md-nav-sref="home.station">
+            <md-tooltip md-direction="bottom">Estações</md-tooltip>
+            <md-icon class="material-icons md-36">store</md-icon></md-nav-item>
+        <md-nav-item name="bike" md-nav-sref="home.bike">
+            <md-tooltip md-direction="bottom">Bikes</md-tooltip>
+            <md-icon class="material-icons md-36">directions_bike</md-icon></md-nav-item>
+        <md-nav-item name="history" md-nav-sref="home.history">
+            <md-tooltip md-direction="bottom">Histórico</md-tooltip>
+            <md-icon class="material-icons md-36">history</md-icon></md-nav-item>
+        <md-nav-item name="play" md-nav-sref="home.play">
+            <md-tooltip md-direction="right">Simulador</md-tooltip>
+            <md-icon class="material-icons md-primary md-36">local_play</md-icon>
+        </md-nav-item>
+    </md-nav-bar>
+    <ui-view></ui-view>
 </md-content>

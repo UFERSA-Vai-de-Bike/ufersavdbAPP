@@ -2,12 +2,14 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('homeController', HomeController);
-    HomeController.$inject = ['$rootScope','$state','storeService','$mdToast'];
-    function HomeController($rootScope,$state,storeService,$mdToast){
+    HomeController.$inject = ['$rootScope','$state','storeService','$mdToast','transactionAPI'];
+    function HomeController($rootScope,$state,storeService,$mdToast,transactionAPI){
         var vm = this;
 
         vm.user = $rootScope.user;
         vm.logout = logout;
+        vm.selectedPage = 'dash';
+        $state.go('home.' + vm.selectedPage);
 
         function logout() {
             console.log(" -- LOGOUT TRY -")

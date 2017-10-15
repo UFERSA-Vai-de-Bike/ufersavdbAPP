@@ -40,7 +40,9 @@
                                     <div ng-message="passwordMatch" ng-hide="firstForm.passRepeat.$valid">Senhas não coincidem.</div>
                                 </div>
                             </md-input-container>
-                            <md-button type="submit" flex="100" flex-order="20" class="md-raised" ng-disabled="firstForm.$invalid" ng-click="vm.next()">Próximo</md-button>
+                            <md-button type="submit" flex="100" flex-order="20" class="md-raised md-primary"
+                                       ng-disabled="firstForm.$invalid && vm.validUser(vm.user.username)"
+                                       ng-click="vm.next()">Próximo</md-button>
                         </md-input-group>
                     </form>
                 </md-content>
@@ -91,9 +93,10 @@
                                     <div ng-message="pattern" ng-hide="signUpForm.phone.$valid">Você não entrou com um telefone válido (00000-0000)</div>
                                 </div>
                             </md-input-container>
-                            <div layout="row" layout-align="space-around center" flex="100" flex-order="4" >
+                            <div layout="row" layout-align="space-around center" flex="100" flex-order="20" >
                                 <md-button flex="30" type="reset" ng-click="vm.previous()">Anterior</md-button>
-                                <md-button flex="50" class="md-warn md-raised" type="submit" ng-disabled="signUpForm.$invalid" ng-click="vm.signUp(vm.user)">Cadastrar-se</md-button>
+                                <md-button flex="40" class="md-warn md-raised" type="submit"
+                                           ng-disabled="signUpForm.$invalid" ng-click="vm.signUp(vm.user)">Cadastrar</md-button>
                             </div>
                         </md-input-group>
                     </form>

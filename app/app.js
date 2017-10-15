@@ -26,7 +26,7 @@
 
                 $rootScope.online = true;
                 $rootScope.user = response.data["data"];
-                args.id = response.data.data.id;
+                args.id = response.data.data.idcli;
                 storeService.setSessionValue('user', args);
                 $state.go('home');
             },

@@ -1,0 +1,15 @@
+<div layout="row" layout-align="space-around center">
+    <md-card flex="50">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Status do Sistema</span>
+                <span class="md-subhead">Resumo</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column" layout-align="space-around start">
+            <div>Total: {{vm.system.total}}</div>
+            <div>Em aberto: {{vm.system.now}}</div>
+            <div>Estações online: {{vm.stations}}</div>
+        </md-card-content>
+    </md-card>
+</div>
