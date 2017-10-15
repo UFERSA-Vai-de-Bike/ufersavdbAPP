@@ -10,22 +10,47 @@
 
 
         function configRouter ($stateProvider, $urlRouterProvider) {
-            $stateProvider
+            function _skipIfAuthenticated($q, $state, $rootScope) {
+                var defer = $q.defer();
+                var on = $rootScope.online;
+                if(on) {
+                    defer.reject();
+                    $state.go('home');
+                } else {
+                    defer.resolve();
+                    $state.go('app');
+                }
+                return defer.promise;
+            }
+            // DEIXA ESSAS FUNÇÕES AQUI QUALQUER COISA NUNCAS SE SABE
+            function _redirectIfNotAuthenticated($q, $state, $rootScope) {
+                var defer = $q.defer();
+                var on = $rootScope.online;
+                if(on) {
+                    defer.resolve();
+                } else {
+                    defer.reject();
+                    $state.go('app');
+                }
+                return defer.promise;
+            };
 
-            // login
+            $stateProvider
+            // app
                 .state('app', {
                     url: '/app',
-                    component: 'appComponent'
-                    /*resolve: {
+                    component: 'appComponent',
+                    resolve: {
                         skipIfAuthenticated: _skipIfAuthenticated
-                    }*/
+                    }
                 })
+                // home
                 .state('home', {
                     url: '/home',
-                    component: 'homeComponent'
-                    /*resolve: {
-                        skipIfAuthenticated: _skipIfAuthenticated
-                    }*/
+                    component: 'homeComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
                 });
             $urlRouterProvider.otherwise('/app');
         };
