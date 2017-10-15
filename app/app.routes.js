@@ -72,6 +72,13 @@
                     resolve: {
                         redirectIfNotAuthenticated: _redirectIfNotAuthenticated
                     }
+                })
+                .state('home.bike', {
+                    url: '/bike',
+                    component: 'bikeComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
                 });
             $urlRouterProvider.otherwise('/app');
         };

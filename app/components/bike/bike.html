@@ -2,7 +2,7 @@
     <md-card flex="33">
         <md-card-title layout="row" layout-align="space-between center">
             <md-card-title-text >
-                <span class="md-headline">Usuários</span>
+                <span class="md-headline">Bikes</span>
             </md-card-title-text>
             <md-button class="md-fab md-primary">
                 <md-icon class="material-icons">add</md-icon></md-button>
@@ -13,17 +13,17 @@
                 <input ng-model="vm.search">
             </md-input-container>
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="user in vm.users | filter: vm.search">
+                <md-list-item class="md-3-line" ng-repeat="bike in vm.bikes | filter: vm.search">
                     <md-icon class="material-icons md-36">
-                        {{vm.iconState(user.state)}}
-                        <md-tooltip md-direction="right">{{vm.tipState(user.state)}}</md-tooltip>
+                        {{vm.iconState(bike.state)}}
+                        <md-tooltip md-direction="right">{{vm.tipState(bike.state)}}</md-tooltip>
                     </md-icon>
                     <div class="md-list-item-text" layout="column" layout-align="space-around center">
-                        <h3>{{user.username}}</h3>
-                        <h4>{{user.regdate | date:'dd/MM/yyyy hh:mm'}}</h4>
+                        <h3>{{bike.name}}</h3>
+                        <h4>{{bike.regdate | date:'dd/MM/yyyy hh:mm'}}</h4>
                     </div>
-                    <md-icon class="material-icons md-36">{{vm.iconBike(user.onbike)}}
-                        <md-tooltip md-direction="left">{{vm.tipBike(user.onbike)}}</md-tooltip>
+                    <md-icon class="material-icons md-36">{{vm.iconRide(bike.onride)}}
+                        <md-tooltip md-direction="left">{{vm.tipRide(bike.onride)}}</md-tooltip>
                     </md-icon>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
