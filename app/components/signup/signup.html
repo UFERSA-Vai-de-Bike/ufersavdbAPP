@@ -1,0 +1,106 @@
+<!-- Modal para Cadastrar-se -->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Cadastro</h2>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" >
+                <i class="material-icons">close</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedIndex">
+            <!-- 1º Tab de cadastro -->
+            <md-tab label="Usuário"  ng-disabled="vm.step0">
+                <md-content class="md-padding">
+                    <div layout='column' layout-align='space-around'>
+                        <form name="firstForm" ng-cloak>
+                            <md-input-container>
+                                <label>Usuário</label>
+                                <input required type="text" name="username" ng-model="vm.user.username">
+                                <div ng-messages="firstForm.username.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                                <!--<div ng-message="vm.validName(vm.user.username)"></div>-->
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Senha</label>
+                                <input required  type="password" name="password" ng-model="vm.user.password">
+                                <div ng-messages="firstForm.password.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Repetir Senha</label>
+                                <input type="password" name="passwordRep" ng-model="vm.passRepeat" required>
+                                <div ng-messages="firstForm.passwordRep.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                                <div ng-show="vm.user.password !== vm.passRepeat">
+                                    <div ng-message>Senhas não coincidem.</div>
+                                </div>
+                            </md-input-container>
+                            <md-button class="md-raised" ng-disabled="firstForm.$invalid" ng-click="vm.next()">Próximo</md-button>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab>
+            <!-- 2º Tab de cadastro-->
+            <md-tab label="Perfil" ng-disabled="vm.step1">
+                <md-content class="md-padding">
+                    Fazendo cadastro para usuário: <strong>{{vm.user.username}}</strong>
+                    </br>
+                    <div layout="column" layout-align="space-around">
+                        <form name="signUpForm" ng-cloak>
+                            <md-input-container>
+                                <label>Nome completo</label>
+                                <input required name="fullname" ng-model="vm.user.fullname">
+                                <div ng-messages="signUpForm.fullname.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" layout-align=" center">
+                                <md-input-container>
+                                    <label>Sexo</label>
+                                    <md-select name="sex" ng-model="vm.user.sex" required>
+                                        <md-option value="M">Masculino</md-option>
+                                        <md-option value="F">Feminino</md-option>
+                                        <md-option value="U">Indefinido</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container >
+                                    <label>Data de Nasc.</label>
+                                    <md-datepicker md-hide-icons="calendar"  ng-model="vm.user.birthdate" required></md-datepicker>
+                                </md-input-container>
+                            </div>
+                            <md-input-container>
+                                <label>Ocupação</label>
+                                <input name="ocupation" ng-model="vm.user.profession">
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Email</label>
+                                <input name="email" required ng-model="vm.user.email">
+                                <div ng-messages="signUpForm.email.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Phone</label>
+                                <input type="tel" name="phone" required ng-model="vm.user.phone">
+                                <div ng-messages="signUpForm.phone.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" >
+                                <md-button type="reset" ng-click="vm.previous()">Anterior</md-button>
+                                <md-button class="md-warn md-raised" type="submit" ng-disabled="signUpForm.$invalid" ng-click="vm.signUp(vm.user)">Cadastrar-se</md-button>
+                            </div>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+    <md-dialog-actions layout="row" layout-align="space-between center">
+
+    </md-dialog-actions>
+</form>
