@@ -36,11 +36,10 @@
             })
         }
 
-        /*vm.formBk = formBk;
-        // var names = [];
+        vm.formBk = formBk;
         function formBk() {
             $mdSidenav('right').open();
-        }*/
+        }
 
 
         vm.filter = {
@@ -109,7 +108,7 @@
         }
 
         getBikes();
-
+        vm.getBikes = getBikes;
         function toast(message,side) {
             if (typeof side == 'undefined')
                 side = 'right';

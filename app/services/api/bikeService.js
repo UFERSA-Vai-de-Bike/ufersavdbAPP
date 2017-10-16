@@ -42,7 +42,7 @@
             return $http.get(config.baseUrl + "/bikes/station_up/" + data.bk + "&" + data.st + "&" + data.sl); // feito
         }
         function _create(data) {
-            return $http.get(config.baseUrl + "/bikes",data); // feito
+            return $http.post(config.baseUrl + "/bikes",data); // feito
         }
         function _getNames() {
             return $http.get(config.baseUrl + "/bikes/n"); // feito
