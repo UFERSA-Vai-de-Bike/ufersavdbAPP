@@ -2,14 +2,43 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('stationController', StationController);
-    StationController.$inject = ['$scope','stationAPI','$mdToast']
-    function StationController($scope,stationAPI,$mdToast){
+    StationController.$inject = ['$scope','stationAPI','$mdToast','$mdDialog','modalService','$mdSidenav']
+    function StationController($scope,stationAPI,$mdToast,$mdDialog,modalService,$mdSidenav){
         var vm = this;
 
-        vm.stations;
-
+        vm.getStations = getStations;
         vm.tipState = tipState;
         vm.iconState = iconState;
+
+        vm.removeSt = removeSt;
+        vm.changeSt = changeSt;
+
+        function changeSt(args){
+            stationAPI.changeSit(args).then(function (response) {
+                toast(response.data.message,'left');
+                getStations();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        function removeSt(args) {
+            stationAPI.remove(args).then(function (response) {
+                toast(response.data.message);
+                vm.stations= vm.stations.filter(function (st) {
+                    if (st.idstation !== args) return st;
+                });
+                getStations();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        vm.formSt = formSt;
+        // var names = [];
+        function formSt() {
+            $mdSidenav('right').open();
+        }
 
         vm.filter = {
             options: {
@@ -57,7 +86,7 @@
 
         function getStations() {
             stationAPI.getAll().then(function (response) {
-                toast(response.data.message);
+                // toast(response.data.message);
                 vm.stations = response.data.data;
             },function (error) {
                 toast(error.data.message);
@@ -66,11 +95,13 @@
 
         getStations();
 
-        function toast(message) {
+        function toast(message,side) {
+            if (typeof side == 'undefined')
+                side = 'right';
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
-                    .position('top right')
+                    .position('top ' + side)
                     .hideDelay(3000)
             );
         }

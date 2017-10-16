@@ -2,15 +2,46 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('bikeController', BikeController);
-    BikeController.$inject = ['$scope','bikeAPI','$mdToast'];
-    function BikeController($scope,bikeAPI,$mdToast){
+    BikeController.$inject = ['$scope','bikeAPI','$mdToast','$mdSidenav'];
+    function BikeController($scope,bikeAPI,$mdToast,$mdSidenav){
         var vm = this;
-        vm.bikes;
 
         vm.tipRide = tipRide;
         vm.iconRide = iconRide;
         vm.tipState = tipState;
         vm.iconState = iconState;
+
+
+        vm.removeBk = removeBk;
+        vm.changeBk = changeBk;
+
+        function changeBk(args){
+            bikeAPI.changeSit(args).then(function (response) {
+                toast(response.data.message,'left');
+                getBikes();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        function removeBk(args) {
+            bikeAPI.remove(args).then(function (response) {
+                toast(response.data.message);
+                vm.bikes = vm.bikes.filter(function (bike) {
+                    if (bike.idbike !== args) return bike;
+                });
+                getBikes();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        /*vm.formBk = formBk;
+        // var names = [];
+        function formBk() {
+            $mdSidenav('right').open();
+        }*/
+
 
         vm.filter = {
             options: {
@@ -70,7 +101,7 @@
 
         function getBikes() {
             bikeAPI.getAll().then(function (response) {
-                toast(response.data.message);
+                // toast(response.data.message);
                 vm.bikes = response.data.data;
             },function (error) {
                 toast(error.data.message);
@@ -79,11 +110,13 @@
 
         getBikes();
 
-        function toast(message) {
+        function toast(message,side) {
+            if (typeof side == 'undefined')
+                side = 'right';
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
-                    .position('top right')
+                    .position('top ' + side)
                     .hideDelay(3000)
             );
         }

@@ -12,7 +12,7 @@
                     <div class="md-ripple-container"></div>
                 </md-button>
                 <md-button class="md-icon-button md-button md-ink-ripple"
-                           type="button" ng-transclude ng-click="vm.addUser()"
+                           type="button" ng-transclude ng-click="vm.formSt()"
                            aria-label="add_user">
                     <ng-md-icon icon="add"></ng-md-icon>
                     <div class="md-ripple-container"></div>
@@ -52,13 +52,20 @@
                     <tr md-row
                         ng-repeat="station in vm.stations | filter: vm.query.filter | orderBy: vm.query.order
                         | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit">
-                        <td md-cell>
+                        <td md-cell ng-click="vm.changeSt(station.idstation)">
                             <ng-md-icon icon="{{vm.iconState(station.state)}}" size="28">
                                 <md-tooltip md-direction="right">{{vm.tipState(station.state)}}</md-tooltip>
                             </ng-md-icon>
                         </td>
                         <td md-cell>{{station.name}}</td>
                         <td md-cell>{{station.regdate | date:'dd/MM/yyyy hh:mm'}}</td>
+                        <td md-cell>
+                            <md-button ng-click="vm.removeSt(station.idstation)">
+                                <ng-md-icon icon="remove_circle" size="24">
+                                    <md-tooltip md-direction="right">Remover</md-tooltip>
+                                </ng-md-icon>
+                            </md-button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -66,5 +73,5 @@
         <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]"
                              md-page="vm.query.page" md-total="{{vm.stations.length}}" md-page-select></md-table-pagination>
     </md-card>
-    <!--<ui-view></ui-view>-->
 </div>
+<form-st-component upd="vm.getStations" flex></form-st-component>

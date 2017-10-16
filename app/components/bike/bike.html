@@ -54,7 +54,7 @@
                 <tbody>
                     <tr md-row ng-repeat="bike in vm.bikes | filter: vm.query.filter | orderBy: vm.query.order
                         | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit">
-                        <td md-cell>
+                        <td md-cell ng-click="vm.changeBk(bike.idbike)">
                             <ng-md-icon icon="{{vm.iconState(bike.state)}}" size="28">
                                 <md-tooltip md-direction="right">{{vm.tipState(bike.state)}}</md-tooltip>
                             </ng-md-icon>
@@ -67,6 +67,13 @@
                             <ng-md-icon icon="{{vm.iconRide(bike.onride)}}" size="28">
                                 <md-tooltip md-direction="right">{{vm.tipRide(bike.onride)}}</md-tooltip>
                             </ng-md-icon>
+                        </td>
+                        <td md-cell>
+                            <md-button ng-click="vm.removeBk(bike.idbike)">
+                                <ng-md-icon icon="remove_circle" size="24">
+                                    <md-tooltip md-direction="right">Remover</md-tooltip>
+                                </ng-md-icon>
+                            </md-button>
                         </td>
                     </tr>
                 </tbody>

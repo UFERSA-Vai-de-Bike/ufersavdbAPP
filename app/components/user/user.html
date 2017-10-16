@@ -1,5 +1,5 @@
 <div flex layout="row" layout-align="space-around center">
-    <md-card flex="40">
+    <md-card flex="60">
         <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.filter.show"
         aria-hidden="false" style>
             <div class="md-toolbar-tools">
@@ -55,7 +55,7 @@
                     <tr md-row
                         ng-repeat="user in vm.users | filter: vm.query.filter | orderBy: vm.query.order
                         | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit">
-                        <td md-cell>
+                        <td md-cell ng-click="vm.changeUser(user.idcli)">
                             <ng-md-icon icon="{{vm.iconState(user.state)}}" size="30">
                                 <md-tooltip md-direction="right">{{vm.tipState(user.state)}}</md-tooltip>
                             </ng-md-icon>
@@ -70,6 +70,13 @@
                             <ng-md-icon icon="{{vm.iconBike(user.onbike)}}" size="30">
                                 <md-tooltip md-direction="right">{{vm.tipBike(user.onbike)}}</md-tooltip>
                             </ng-md-icon>
+                        </td>
+                        <td md-cell>
+                            <md-button ng-click="vm.removeUser(user.idcli)">
+                                <ng-md-icon icon="remove_circle" size="24">
+                                    <md-tooltip md-direction="right">Remover</md-tooltip>
+                                </ng-md-icon>
+                            </md-button>
                         </td>
                     </tr>
                 </tbody>

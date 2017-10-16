@@ -2,8 +2,8 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('userController', UserController);
-    UserController.$inject = ['$rootScope','$scope','userAPI','$mdToast'];
-    function UserController($rootScope,$scope,userAPI,$mdToast){
+    UserController.$inject = ['$rootScope','$scope','userAPI','$mdToast','$mdSidenav'];
+    function UserController($rootScope,$scope,userAPI,$mdToast,$mdSidenav){
         var vm = this;
         vm.user = $rootScope.user;
         vm.users;
@@ -11,6 +11,41 @@
         vm.iconBike = iconBike;
         vm.tipState = tipState;
         vm.iconState = iconState;
+        vm.addUser = addUser;
+
+        vm.removeUser = removeUser;
+        vm.changeUser = changeUser;
+
+        function changeUser(args){
+            userAPI.changeSit(args).then(function (response) {
+                toast(response.data.message,'left');
+                vm.users= vm.users.filter(function (cli) {
+                    if (cli.idcli !== args) return cli;
+                });
+                getUsers();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        function removeUser(args) {
+            userAPI.remove(args).then(function (response) {
+                toast(response.data.message);
+                getUsers();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }
+
+        function addUser() {
+            toast("Você quer cadastro?");
+        }
+
+        /*vm.formUser = formUser;
+        // var names = [];
+        function formUser() {
+            $mdSidenav('right').open();
+        }*/
 
         vm.filter = {
             options: {
@@ -70,7 +105,7 @@
 
         function getUsers() {
             userAPI.getAll().then(function (response) {
-                toast(response.data.message);
+                // toast(response.data.message);
                 vm.users = response.data.data;
             },function (error) {
                 toast(error.data.message);
@@ -79,11 +114,13 @@
 
         getUsers();
 
-        function toast(message) {
+        function toast(message,side) {
+            if (typeof side == 'undefined')
+                side = 'right';
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
-                    .position('top right')
+                    .position('top ' + side)
                     .hideDelay(3000)
             );
         }
