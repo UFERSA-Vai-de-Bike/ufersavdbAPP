@@ -1,24 +1,46 @@
 (function(angular){
     "use strict";
     angular.module('ufersavdb')
-        .controller('formStController', FormStController);
-    FormStController.$inject = ['stationAPI','$mdToast','$mdSidenav'];
-    function FormStController(stationAPI,$mdToast,$mdSidenav) {
+        .controller('formCliController', FormCliController);
+    FormCliController.$inject = ['userAPI','$mdToast','$mdSidenav'];
+    function FormCliController(userAPI,$mdToast,$mdSidenav) {
         var vm = this;
-
         vm.cancel = hide;
-        vm.validSt = validSt;
-        vm.addSt = addSt;
+        vm.validUser = validUser;
+        vm.addUser = addUser;
+
+        vm.roles = [
+            {
+                cod: 0,
+                name: "MISSINGNO"
+            },
+            {
+                cod: 1,
+                name: "Usuário"
+            },
+            {
+                cod: 2,
+                name: "Moderador"
+            },
+            {
+                cod: 3,
+                name: "Administrador"
+            }
+        ];
+
+        vm.user = {
+            role: 0
+        };
 
         $mdSidenav('right').onClose(function () {
-            vm.stForm.form.$setPristine();
+            vm.userForm.$setPristine();
         });
 
-        function addSt(args) {
+        function addUser(args) {
             console.log(" -- CADASTRAR -");
             console.log(JSON.stringify(args));
 
-                stationAPI.create(args).then(function successCallBack (response) {
+                userAPI.create(args).then(function successCallBack (response) {
                     toast(response.data.message);
                     vm.upd();
                     hide(false);
@@ -31,17 +53,16 @@
         var names = [];
         vm.getNames = getNames;
         function getNames() {
-            stationAPI.getNames().then(function succesCallBack(response) {
+            userAPI.getNames().then(function succesCallBack(response) {
                 names = response.data.data;
                 toast(response.data.message);
             }, function errorCallback(error) {
                 toast("Erro no carregamento dos nomes");
             });
         }
-
-        function validSt(args) {
+        function validUser(args) {
             for (var i = 0;i<names.length;++i){
-                if (args == names[i].getstsname) {
+                if (args == names[i].getclientsusername) {
                     return true;
                 }
             }

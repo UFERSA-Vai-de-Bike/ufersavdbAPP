@@ -11,7 +11,7 @@
         vm.iconBike = iconBike;
         vm.tipState = tipState;
         vm.iconState = iconState;
-        vm.addUser = addUser;
+        vm.formUser = formUser;
 
         vm.removeUser = removeUser;
         vm.changeUser = changeUser;
@@ -37,15 +37,9 @@
             })
         }
 
-        function addUser() {
-            toast("Você quer cadastro?");
-        }
-
-        /*vm.formUser = formUser;
-        // var names = [];
         function formUser() {
             $mdSidenav('right').open();
-        }*/
+        }
 
         vm.filter = {
             options: {
@@ -112,6 +106,7 @@
             });
         }
 
+        vm.getUsers = getUsers;
         getUsers();
 
         function toast(message,side) {

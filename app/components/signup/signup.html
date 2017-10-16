@@ -3,7 +3,7 @@
         <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
             <h2>Cadastro</h2>
             <md-button class="md-icon-button" ng-click="vm.cancel()" >
-                <i class="material-icons">close</i>
+                <ng-md-icon icon="close" size="24"></ng-md-icon>
             </md-button>
         </div>
     </md-toolbar>
@@ -41,7 +41,7 @@
                                 </div>
                             </md-input-container>
                             <md-button type="submit" flex="100" flex-order="20" class="md-raised md-primary"
-                                       ng-disabled="firstForm.$invalid && vm.validUser(vm.user.username)"
+                                       ng-disabled="firstForm.$invalid && !vm.validUser(vm.user.username)"
                                        ng-click="vm.next()">Próximo</md-button>
                         </md-input-group>
                     </form>

@@ -31,15 +31,15 @@
                         <div ng-message="passwordMatch" ng-hide="vm.stForm.passRepeat.$valid">Senhas não coincidem.</div>
                     </div>
                 </md-input-container>
+                <div layout="row" flex-order="20" layout-align="space-around center">
+                    <md-button type="reset" class="md-raised" ng-click="vm.cancel(true)">
+                        Cancelar
+                    </md-button>
+                    <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
+                               ng-disabled="vm.stForm.$invalid && vm.validSt(vm.station.name)"
+                               ng-click="vm.addSt(vm.station)">Cadastrar</md-button>
+                </div>
             </md-input-group>
-            <div layout="row" layout-align="space-around center">
-                <md-button type="reset" class="md-raised" ng-click="vm.cancel(true)">
-                    Cancelar
-                </md-button>
-                <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
-                           ng-disabled="vm.stForm.$invalid && vm.validSt(vm.station.name)"
-                           ng-click="vm.addSt(vm.station)">Cadastrar</md-button>
-            </div>
         </form>
     </md-content>
 </md-sidenav>
