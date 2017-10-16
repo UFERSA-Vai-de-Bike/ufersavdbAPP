@@ -79,6 +79,13 @@
                     resolve: {
                         redirectIfNotAuthenticated: _redirectIfNotAuthenticated
                     }
+                })
+                .state('home.history', {
+                    url: '/history',
+                    component: 'hsComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
                 });
             $urlRouterProvider.otherwise('/app');
         };

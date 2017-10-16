@@ -1,14 +1,12 @@
 (function(angular){
     "use strict";
     angular.module('ufersavdb')
-        .controller('userController', UserController);
-    UserController.$inject = ['$rootScope','$scope','userAPI','$mdToast'];
-    function UserController($rootScope,$scope,userAPI,$mdToast){
+        .controller('hsController', HsController);
+    HsController.$inject = ['$scope','transactionAPI','$mdToast'];
+    function HsController($scope,transactionAPI,$mdToast){
         var vm = this;
-        vm.user = $rootScope.user;
-        vm.users;
-        vm.tipBike = tipBike;
-        vm.iconBike = iconBike;
+        vm.hss;
+
         vm.tipState = tipState;
         vm.iconState = iconState;
 
@@ -20,7 +18,7 @@
         vm.query = {
             filter: '',
             limit: 5,
-            order: 'username',
+            order: 'state',
             page: 1
         };
 
@@ -45,39 +43,27 @@
 
         function iconState(args) {
             if(args)
-                return 'mood';
+                return 'flight_land';
             else
-                return 'mood_bad';
+                return 'flight_takeoff';
         }
         function tipState(args) {
             if (args)
-                return "Liberado";
+                return "Concluído";
             else
-                return "Bloqueado";
-        }
-        function iconBike(args) {
-            if(args)
-                return 'directions_bike';
-            else
-                return 'directions_walk';
-        }
-        function tipBike(args) {
-            if (args)
-                return "Está usando";
-            else
-                return "Não está usando"
+                return "Em aberto";
         }
 
-        function getUsers() {
-            userAPI.getAll().then(function (response) {
+        function getLogs() {
+            transactionAPI.getAll().then(function (response) {
+                vm.hss = response.data.data;
                 toast(response.data.message);
-                vm.users = response.data.data;
             },function (error) {
                 toast(error.data.message);
-            });
+            })
         }
 
-        getUsers();
+        getLogs();
 
         function toast(message) {
             $mdToast.show(

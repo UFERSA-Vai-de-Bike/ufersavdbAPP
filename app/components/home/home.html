@@ -5,28 +5,33 @@
             <md-button class="md-raised md-warn" ng-click="vm.logout()">Sair</md-button>
         </div>
     </md-toolbar>
-    <md-nav-bar layout="row" layout-align="center space-around" md-selected-nav-item="vm.selectedPage"
+    <md-nav-bar md-theme="altTheme1" layout="row" layout-align="center space-around" md-selected-nav-item="vm.selectedPage"
     nav-bar-aria-label="Itens de navegação">
         <md-nav-item name="dash" md-nav-sref="home.dash">
             <md-tooltip md-direction="left">Dashboard</md-tooltip>
-            <md-icon class="material-icons md-36">whatshot</md-icon>
+            <ng-md-icon icon="whatshot" size="36"></ng-md-icon>
         </md-nav-item>
         <md-nav-item name="user" md-nav-sref="home.user">
             <md-tooltip md-direction="bottom">Usuários</md-tooltip>
-            <md-icon class="material-icons md-36">people</md-icon></md-nav-item>
+            <ng-md-icon icon="people" size="36"></ng-md-icon>
+        </md-nav-item>
         <md-nav-item name="stations" md-nav-sref="home.station">
             <md-tooltip md-direction="bottom">Estações</md-tooltip>
-            <md-icon class="material-icons md-36">store</md-icon></md-nav-item>
+            <ng-md-icon icon="store" size="36"></ng-md-icon>
+        </md-nav-item>
         <md-nav-item name="bike" md-nav-sref="home.bike">
             <md-tooltip md-direction="bottom">Bikes</md-tooltip>
-            <md-icon class="material-icons md-36">directions_bike</md-icon></md-nav-item>
+            <ng-md-icon icon="directions_bike" size="36"></ng-md-icon>
+        </md-nav-item>
         <md-nav-item name="history" md-nav-sref="home.history">
             <md-tooltip md-direction="bottom">Histórico</md-tooltip>
-            <md-icon class="material-icons md-36">history</md-icon></md-nav-item>
+            <ng-md-icon icon="history" size="36"></ng-md-icon>
+        </md-nav-item>
         <md-nav-item name="play" md-nav-sref="home.play">
             <md-tooltip md-direction="right">Simulador</md-tooltip>
-            <md-icon class="material-icons md-primary md-36">local_play</md-icon>
+            <ng-md-icon icon="local_play" size="36"></ng-md-icon>
         </md-nav-item>
     </md-nav-bar>
+    <br>
     <ui-view></ui-view>
 </md-content>

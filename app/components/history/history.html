@@ -1,0 +1,121 @@
+<div flex layout="row" layout-align="center stretch" layout-margin>
+    <md-card flex>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.filter.show"
+                    aria-hidden="false" style>
+            <div class="md-toolbar-tools">
+                <h2 class="md-title">Histórico</h2>
+                <div flex class="flex"></div>
+                <md-button class="md-icon-button md-button md-ink-ripple"
+                           type="button" ng-transclude ng-click="vm.filter.show = true"
+                           aria-label="filter_list">
+                    <ng-md-icon icon="filter_list"></ng-md-icon>
+                    <div class="md-ripple-container"></div>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show"
+                    aria-hidden="true" style>
+            <div class="md-toolbar-tools">
+                <ng-md-icon icon="search"></ng-md-icon>
+                <form flex name="vm.filter.form" class="ng-pristine ng-valid flex">
+                    <input ng-model="vm.query.filter" placeholder="Pesquise aqui" ng-model-options="vm.filter.options" class="ng-pristine ng-untouched ng-valid"
+                           aria-invalid="false">
+                </form>
+                <md-button class="md-icon-button md-button md-ink-ripple"
+                           type="button" ng-transclude ng-click="vm.removeFilter()"
+                           aria-label="close">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                    <div class="md-ripple-container"></div>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-table-container>
+            <table md-table aria-invalid="false">
+                <thead md-head md-order="vm.query.order">
+                    <th md-column md-order-by="name_cli">
+                        <span>Usuário</span>
+                    </th>
+                    <th md-column md-order-by="name_bk">
+                        <span>Bike</span>
+                    </th>
+                    <th md-column md-order-by="regoutdate">
+                        <span>Empréstimo</span>
+                    </th>
+                    <th md-column md-order-by="slotout">
+                        <span>Slot(Out)</span>
+                    </th>
+                    <th md-column md-order-by="name_stout">
+                        <span>Estação(Out)</span>
+                    </th>
+                    <th md-column md-order-by="regindate">
+                        <span>Devolução</span>
+                    </th>
+                    <th md-column md-order-by="slotin">
+                        <span>Slot(In)</span>
+                    </th>
+                    <th md-column md-order-by="name_stin">
+                        <span>Estação(In)</span>
+                    </th>
+                    <th md-column md-order-by="state">
+                        <span>Status</span>
+                    </th>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="hs in vm.hss | filter: vm.query.filter | orderBy: vm.query.order
+                        | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit">
+                    <td md-cell>{{hs.name_cli}}</td>
+                    <td md-cell>{{hs.name_bk}}</td>
+                    <td md-cell>{{hs.regoutdate | date:'dd/MM/yyyy hh:mm'}}</td>
+                    <td md-cell>{{hs.slotout}}</td>
+                    <td md-cell>{{hs.name_stout}}</td>
+                    <td md-cell>{{hs.regindate | date:'dd/MM/yyyy hh:mm'}}</td>
+                    <td md-cell>{{hs.slotin}}</td>
+                    <td md-cell>{{hs.name_stin}}</td>
+                    <td md-cell>
+                        <ng-md-icon icon="{{vm.iconState(hs.state)}}" size="30">
+                            <md-tooltip md-direction="right">
+                                {{vm.tipState(hs.state)}}
+                            </md-tooltip>
+                        </ng-md-icon>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]"
+                             md-page="vm.query.page" md-total="{{vm.hss.length}}" m
+    </md-card>
+
+
+    <!--<md-card flex="50">
+        <md-card-title layout="row" layout-align="space-between center">
+            <md-card-title-text >
+                <span class="md-headline">Histórico</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <md-input-container>
+                <label>Pesquise aqui</label>
+                <input ng-model="vm.search">
+            </md-input-container>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="hs in vm.hss | filter: vm.search">
+                    <md-icon class="material-icons md-36">
+                        {{vm.iconState(hs.state)}}
+                        <md-tooltip md-direction="right">{{vm.tipState(hs.state)}}</md-tooltip>
+                    </md-icon>
+                    <div class="md-list-item-text" layout="column" layout-align="space-around center">
+                        <h3>{{hs.name_cli}}</h3>
+                        <h3>{{hs.name_bk}}</h3>
+                        <h4>{{hs.reg_out | date:'dd/MM/yyyy hh:mm'}}</h4>
+                        <h3>{{hs.slotout}}º slot de {{hs.name_stout}}</h3>
+                        <h4>{{hs.reg_in | date:'dd/MM/yyyy hh:mm'}}</h4>
+                        <h3>{{hs.slotin}}º slot de {{hs.name_stin}}</h3>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+    </md-card>-->
+    <!--<ui-view></ui-view>-->
+</div>
