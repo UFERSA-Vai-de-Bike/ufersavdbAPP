@@ -6,6 +6,8 @@
     function UserController($rootScope,$scope,userAPI,$mdToast,$mdDialog,modalService){
         var vm = this;
         vm.user = $rootScope.user;
+        vm.add = add;
+        vm.editPass = editPass;
 
         // vm.getUsers = getUsers;
 
@@ -13,7 +15,7 @@
         vm.remove = remove;
         // vm.changeUser = changeUser;
 
-        vm.add = add;
+
         function add(ev) {
             $mdDialog.show(modalService.signup(ev))
                 .then(function() {
@@ -22,26 +24,72 @@
                     toast('Cadastro cancelado!');
                 });
         }
-        /*function changeUser(args){
-            userAPI.changeSit(args).then(function (response) {
-                toast(response.data.message,'left');
-                vm.users= vm.users.filter(function (cli) {
-                    if (cli.idcli !== args) return cli;
-                });
-                getUsers();
-            },function (error) {
-                toast(error.data.message);
-            })
-        }*/
 
-        function remove(args) {
-            userAPI.remove(args).then(function (response) {
-                toast(response.data.message);
-                getUsers();
-            },function (error) {
-                toast(error.data.message);
-            })
+
+        function remove(ev,args) {
+            var confirm = $mdDialog.confirm()
+                .title('Remoção de Usuário')
+                .textContent('Deseja remover '+ args.username+ '?')
+                .ariaLabel('Remoção')
+                .targetEvent(ev)
+                .ok('Sim')
+                .cancel('Não');
+
+            $mdDialog.show(confirm).then(function() {
+                userAPI.remove(args.idcli).then(function (response) {
+                    toast(response.data.message);
+                    getUsers();
+                },function (error) {
+                    toast(error.data.message);
+                })
+            });
+
         }
+
+        function editPass(ev,args){
+            var confirm = $mdDialog.confirm()
+                .title('Alteração de senha')
+                .textContent('Deseja alterar senha de '+ args.username+ '?')
+                .ariaLabel('Edição')
+                .targetEvent(ev)
+                .ok('Sim')
+                .cancel('Não');
+
+            $mdDialog.show(confirm).then(function() {
+                var prompt = $mdDialog.prompt()
+                    .title('Qual a nova de '+ args.username +'?')
+                    .placeholder('Senha')
+                    .ariaLabel('Senha')
+                    .targetEvent(ev)
+                    .required(true)
+                    .ok('Alterar')
+                    .cancel('Cancelar');
+
+                $mdDialog.show(prompt).then(function(result) {
+                    args.password = result;
+                    userAPI.update(args).then(function (response) {
+                        toast(response.data.message);
+                    },function (error) {
+                        toast(error.data.message);
+                    })
+                }, function() {
+                    toast("Cancelado");
+                });
+
+            }, function() {
+
+            });
+        }
+
+        /*userAPI.changeSit(args).then(function (response) {
+            toast(response.data.message,'left');
+            vm.users= vm.users.filter(function (cli) {
+                if (cli.idcli !== args) return cli;
+            });
+            getUsers();
+        },function (error) {
+            toast(error.data.message);
+        })*/
 
         function getUsers() {
             userAPI.getAll().then(function (response) {

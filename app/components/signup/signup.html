@@ -41,7 +41,7 @@
                                 </div>
                             </md-input-container>
                             <md-button type="submit" flex="100" flex-order="20" class="md-raised md-primary"
-                                       ng-disabled="firstForm.$invalid && !vm.validUser(vm.user.username)"
+                                       ng-disabled="firstForm.$invalid || vm.validUser(vm.user.username)"
                                        ng-click="vm.next()">Próximo</md-button>
                         </md-input-group>
                     </form>

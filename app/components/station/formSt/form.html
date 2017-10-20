@@ -36,7 +36,7 @@
                 </div>
             </md-input-container>
             <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
-                       ng-disabled="vm.stForm.$invalid && vm.validSt(vm.station.name)"
+                       ng-disabled="vm.stForm.$invalid || vm.validSt(vm.station.name)"
                        ng-click="vm.addSt(vm.station)">Cadastrar</md-button>
         </md-input-group>
     </form>

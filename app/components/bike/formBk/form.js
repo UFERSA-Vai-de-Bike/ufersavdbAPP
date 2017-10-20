@@ -2,17 +2,12 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('formBkController', FormBkController);
-    FormBkController.$inject = ['bikeAPI','$mdToast','$mdSidenav'];
-    function FormBkController(bikeAPI,$mdToast,$mdSidenav) {
+    FormBkController.$inject = ['bikeAPI','$mdToast','$mdDialog'];
+    function FormBkController(bikeAPI,$mdToast,$mdDialog) {
         var vm = this;
-        vm.cancel = hide;
+        vm.cancel = cancel;
         vm.validBk = validBk;
         vm.addBk = addBk;
-
-
-        $mdSidenav('right').onClose(function () {
-            vm.bikeForm.$setPristine();
-        });
 
         function addBk(args) {
             console.log(" -- CADASTRAR -");
@@ -20,16 +15,14 @@
 
                 bikeAPI.create(args).then(function successCallBack (response) {
                     toast(response.data.message);
-                    vm.upd();
-                    hide(false);
+                    hide();
                 }, function errorCallback (error) {
                     console.log("Erro no cadastro: " + JSON.stringify(error));
-                    // toast(error.data.message);
+                    toast(error.data.message);
                 });
         }
 
         var names = [];
-        vm.getNames = getNames;
         function getNames() {
             bikeAPI.getNames().then(function succesCallBack(response) {
                 names = response.data.data;
@@ -38,20 +31,22 @@
                 toast("Erro no carregamento dos nomes");
             });
         }
+        getNames();
         function validBk(args) {
             for (var i = 0;i<names.length;++i){
-                if (args == names[i].getbksname) {
+                if (args === names[i].getbksname) {
                     return true;
                 }
             }
             return false;
         }
 
-        function hide (ans) {
-            $mdSidenav('right').close().then(function () {
-                if (ans)
-                    toast("Cancelado");
-            });
+        function cancel () {
+            $mdDialog.cancel();
+        }
+
+        function hide () {
+            $mdDialog.hide();
         }
 
         function toast (message) {

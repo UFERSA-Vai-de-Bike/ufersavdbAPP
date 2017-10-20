@@ -46,6 +46,9 @@
                     <th md-column md-order-by="name">
                         <span>Nome</span>
                     </th>
+                    <th md-column md-order-by="slots">
+                        <span>Slots</span>
+                    </th>
                 </thead>
                 <tbody>
                     <tr md-row
@@ -59,6 +62,10 @@
                         <td md-cell ng-click="vm.showInfo(station.idstation)">
                             {{station.name}}
                             <md-tooltip md-direction="left">Detalhes</md-tooltip>
+                        </td>
+                        <td md-cell>
+                            {{station.slots}}
+                            <md-tooltip md-direction="left">Quantidade de slots</md-tooltip>
                         </td>
                         <td md-cell>
                             <md-button class="md-icon-button md-primary" ng-click="vm.edit(station.idstation)">
@@ -78,4 +85,4 @@
                              md-page="vm.query.page" md-total="{{vm.stations.length}}" md-page-select></md-table-pagination>
     </md-card>
 </div>
-<!--<form-st-component upd="vm.getStations" flex></form-st-component>-->
+<!--<ui-view></ui-view>-->

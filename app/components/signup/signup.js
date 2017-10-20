@@ -6,7 +6,7 @@
     function SignUpController(userAPI,$mdDialog,$mdToast){
         var vm = this;
 
-        vm.user = {
+       /* vm.user = {
             "username":"teste1",
             "password":"amanhaagentefaz",
             "passRepeat":"amanhaagentefaz",
@@ -15,7 +15,7 @@
             "profession":"teste",
             "email": "teste@ufersa.vdb.br",
             "phone":"99976-8606"
-        };
+        };*/
 
         vm.maxDate = new Date();
         vm.validUser = validUser;
@@ -39,6 +39,16 @@
             });
         }
 
+        /*console.log(" -- EDITAR -");
+        console.log(JSON.stringify(user));
+        userAPI.update(user).then(function successCallBack (response) {
+            toast(response.data.message);
+            hide();
+        }, function errorCallback (error) {
+            console.log("Erro na edição: " + JSON.stringify(error));
+            // toast(error.data.message);
+        });*/
+
         var names = [];
         userAPI.getNames().then(function succesCallBack(response) {
             names = response.data.data;
@@ -48,7 +58,7 @@
         });
         function validUser(args) {
             for (var i = 0;i<names.length;++i){
-                if (args == names[i].getclientsusername) {
+                if (args === names[i].getclientsusername) {
                     return true;
                 }
             }

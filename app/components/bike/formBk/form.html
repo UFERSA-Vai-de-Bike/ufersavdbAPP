@@ -1,30 +1,29 @@
-<md-sidenav ng-init="vm.getNames()" flex="20" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-disable-backdrop>
-    <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Adicionar Bike</h1>
-    </md-toolbar>
-    <md-content layout-padding flex>
-        <form name="vm.bikeForm" ng-cloak novalidate>
-            <md-input-group layout='column' layout-align='space-around none'>
-                <md-input-container flex="100" flex-order="-1">
-                    <label>Usuário</label>
-                    <input required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
-                    <div ng-messages="vm.bikeForm.username.$error">
-                        <div ng-message="required" ng-hide="vm.bikeForm.name.$valid">Campo obrigatório.</div>
-                        <div ng-message="minlength" ng-hide="vm.bikeForm.name.$valid">Mínimo de 6 caracteres</div>
-                    </div>
-                    <div ng-show="vm.validBk(vm.bike.name)">
-                        <div ng-message="">Esse nome de bike já foi escolhido!</div>
-                    </div>
-                </md-input-container>
-                <div layout="row" flex-order="20" layout-align="space-around center">
-                    <md-button type="reset" class="md-raised" ng-click="vm.cancel(true)">
-                        Cancelar
-                    </md-button>
-                    <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
-                               ng-disabled="vm.bikeForm.$invalid && !vm.validBk(vm.bike.name)"
-                               ng-click="vm.addBk(vm.bike)">Cadastro</md-button>
+<md-toolbar>
+    <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
+        <h2>Cadastro Bike</h2>
+        <md-button class="md-icon-button" ng-click="vm.cancel()" >
+            <ng-md-icon icon="close" size="24"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding flex>
+    <form name="vm.bikeForm" ng-cloak novalidate>
+        <md-input-group layout='column' layout-align='space-around none'>
+            <md-input-container flex="100" flex-order="-1">
+                <label>Bicicleta</label>
+                <input required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
+                <div ng-messages="vm.bikeForm.name.$error">
+                    <div ng-message="required" ng-hide="vm.bikeForm.name.$valid">Campo obrigatório.</div>
+                    <div ng-message="minlength" ng-hide="vm.bikeForm.name.$valid">Mínimo de 6 caracteres</div>
                 </div>
-            </md-input-group>
-        </form>
-    </md-content>
-</md-sidenav>
+                <div ng-show="vm.validBk(vm.bike.name)">
+                    <div ng-message="">Esse nome de bike já foi escolhido!</div>
+                </div>
+            </md-input-container>
+
+            <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
+                       ng-disabled="vm.bikeForm.$invalid || vm.validBk(vm.bike.name)"
+                       ng-click="vm.addBk(vm.bike)">Cadastro</md-button>
+        </md-input-group>
+    </form>
+</md-content>

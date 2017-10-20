@@ -8,7 +8,9 @@
 
             var service = {
                 signup: _signup,
-                addSt: _addSt
+                addSt: _addSt,
+                addBk: _addBk,
+                profile: _profile
                 /*
                 novoModal: _novoModal //,
 
@@ -31,6 +33,18 @@
                 };
                 return signup;
             }
+
+            function _profile(ev,args) {
+                var profile = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Cadastro"><profile-component id="'+args+'"></profile-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return profile;
+            }
+
             function _addSt(ev) {
                 var addSt = {
                     //controller: dialogController, // SE NECESSÁRIO
@@ -41,15 +55,32 @@
                 };
                 return addSt;
             }
+            function _addBk(ev) {
+                var addBk = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Cadastro"><form-bk-component ></form-bk-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return addBk;
+            }
 
-
-            function dialogController($mdDialog) {
+            /*controller: dialogController,
+                controllerAs: 'vm',
+                bindToController: true,
+                resolve: {
+                args: function () {
+                    return args;
+                }
+            }
+            function dialogController($mdDialog,args) {
                 var vm = this;
                 vm.cancel = function () {
                     $mdDialog.hide();
                 }
+                vm.args = args;
             }
-
-            dialogController.$inject = ['$mdDialog'];
+            dialogController.$inject = ['$mdDialog','args'];*/
         }
 })(angular);

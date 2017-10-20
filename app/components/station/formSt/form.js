@@ -36,7 +36,7 @@
 
         function validSt(args) {
             for (var i = 0;i<names.length;++i){
-                if (args == names[i].getstsname) {
+                if (args === names[i].getstsname) {
                     return true;
                 }
             }
