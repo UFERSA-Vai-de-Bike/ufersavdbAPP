@@ -10,6 +10,7 @@
                 signup: _signup,
                 addSt: _addSt,
                 addBk: _addBk,
+                confSt: _confSt,
                 confBk: _confBk,
                 confUser: _confUser,
                 profile: _profile
@@ -66,6 +67,17 @@
                     clickOutsideToClose: false
                 };
                 return addBk;
+            }
+
+            function _confSt(ev,args) {
+                var confSt = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Configuração"><config-st-component id="'+ args +'"></config-st-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return confSt;
             }
 
             function _confBk(ev,args) {

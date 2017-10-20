@@ -1,31 +1,50 @@
 <md-toolbar>
     <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
-        <h2>Configurar Bike</h2>
+        <h2>Configuração</h2>
         <md-button class="md-icon-button" ng-click="vm.cancel()" >
             <ng-md-icon icon="close" size="24"></ng-md-icon>
         </md-button>
     </div>
 </md-toolbar>
 <md-content layout-padding flex>
-    <form name="vm.bikeForm" ng-cloak novalidate>
+    <form name="vm.stationForm" ng-cloak novalidate>
         <md-input-group layout='column' layout-align='space-around none'>
+            <md-checkbox flex flex-order="-20" class="md-warn md-align-top-left" flex ng-model="vm.checkUpd" aria-label="Caixa de seleção">
+                Edição
+            </md-checkbox>
             <md-input-container flex="100" flex-order="-1">
                 <label>Bicicleta</label>
-                <input required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
-                <div ng-messages="vm.bikeForm.name.$error">
-                    <div ng-message="required" ng-hide="vm.bikeForm.name.$valid">Campo obrigatório.</div>
-                    <div ng-message="minlength" ng-hide="vm.bikeForm.name.$valid">Mínimo de 6 caracteres</div>
+                <input ng-disabled="!vm.checkUpd" required ng-minlength="6" type="text" name="name" ng-model="vm.station.name">
+                <div ng-messages="vm.stationForm.name.$error">
+                    <div ng-message="required" ng-hide="vm.stationForm.name.$valid">Campo obrigatório.</div>
+                    <div ng-message="minlength" ng-hide="vm.stationForm.name.$valid">Mínimo de 6 caracteres</div>
                 </div>
-                <div ng-show="vm.validBk(vm.bike.name)">
-                    <div ng-message="">Esse nome de bike já foi escolhido!</div>
+                <div ng-show="vm.validBk(vm.station.name)">
+                    <div ng-message="">Esse nome de station já foi escolhido!</div>
                 </div>
             </md-input-container>
-            <md-switch ng-model="vm.bike.state" aria-label="Interruptor" md-invert>
+            <md-input-container flex="100" flex-order="0">
+                <label>Senha</label>
+                <input ng-disabled="!vm.checkUpd" required ng-minlength="6" type="password" name="password" ng-model="vm.station.password">
+                <div ng-messages="stationForm.password.$error" >
+                    <div ng-message="minlength" ng-hide="stationForm.password.$valid">Mínimo de 6 caracteres</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-order="1" >
+                <label>Repetir Senha</label>
+                <input type="password" name="passRepeat" ng-model="vm.station.passRepeat"
+                       required match-password="password"
+                       ng-disabled="!vm.checkUpd">
+                <div ng-messages="stationForm.passRepeat.$error">
+                    <div ng-message="passwordMatch" ng-hide="stationForm.passRepeat.$valid">Senhas não coincidem.</div>
+                </div>
+            </md-input-container>
+            <md-switch flex-order="19" flex ng-model="vm.station.state" aria-label="Interruptor" md-invert>
                 Estado
             </md-switch>
             <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
-                       ng-disabled="vm.bikeForm.$invalid || vm.validBk(vm.bike.name)"
-                       ng-click="vm.upd(vm.bike)">Cadastro</md-button>
+                       ng-disabled="vm.stationForm.$invalid || vm.validSt(vm.station.name)"
+                       ng-click="vm.upd(vm.station)">Alterar</md-button>
         </md-input-group>
     </form>
 </md-content>

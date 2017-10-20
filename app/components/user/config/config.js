@@ -35,6 +35,7 @@
         function init(args) {
             userAPI.get(args).then(function (response) {
                 vm.user = response.data.data;
+                vm.user.passRepeat = vm.user.password;
                 toast(response.data.message);
 
                 userAPI.getNames().then(function succesCallBack(resp) {

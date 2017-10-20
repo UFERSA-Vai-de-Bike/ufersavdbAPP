@@ -47,16 +47,6 @@
             })
         }
 
-        /*userAPI.changeSit(args).then(function (response) {
-            toast(response.data.message,'left');
-            vm.users= vm.users.filter(function (cli) {
-                if (cli.idcli !== args) return cli;
-            });
-            getUsers();
-        },function (error) {
-            toast(error.data.message);
-        })*/
-
         function getUsers() {
             userAPI.getAll().then(function (response) {
                 // toast(response.data.message);

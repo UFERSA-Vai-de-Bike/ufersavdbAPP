@@ -1,6 +1,6 @@
 <md-toolbar>
     <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
-        <h2>Configurar Bike</h2>
+        <h2>Configuração</h2>
         <md-button class="md-icon-button" ng-click="vm.cancel()" >
             <ng-md-icon icon="close" size="24"></ng-md-icon>
         </md-button>
@@ -9,9 +9,12 @@
 <md-content layout-padding flex>
     <form name="vm.bikeForm" ng-cloak novalidate>
         <md-input-group layout='column' layout-align='space-around none'>
+            <md-checkbox flex flex-order="-20" class="md-warn md-align-top-left" flex ng-model="vm.checkUpd" aria-label="Caixa de seleção">
+                Edição
+            </md-checkbox>
             <md-input-container flex="100" flex-order="-1">
                 <label>Bicicleta</label>
-                <input required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
+                <input ng-disabled="!vm.checkUpd" required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
                 <div ng-messages="vm.bikeForm.name.$error">
                     <div ng-message="required" ng-hide="vm.bikeForm.name.$valid">Campo obrigatório.</div>
                     <div ng-message="minlength" ng-hide="vm.bikeForm.name.$valid">Mínimo de 6 caracteres</div>

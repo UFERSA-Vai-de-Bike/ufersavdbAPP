@@ -2,15 +2,15 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('configStController', ConfigStController);
-    ConfigStController.$inject = ['$scope','bikeAPI','$mdToast','$mdDialog'];
-    function ConfigStController($scope,bikeAPI,$mdToast,$mdDialog) {
+    ConfigStController.$inject = ['$scope','stationAPI','$mdToast','$mdDialog'];
+    function ConfigStController($scope,stationAPI,$mdToast,$mdDialog) {
         var vm = this;
         vm.cancel = cancel;
-        vm.validBk = validBk;
+        vm.validSt = validSt;
         vm.upd = upd;
 
         function upd(args) {
-            bikeAPI.update(args).then(function (response) {
+            stationAPI.update(args).then(function (response) {
                 toast(response.data.message);
                 hide();
             }, function (err) {
@@ -19,9 +19,9 @@
             })
         }
 
-        function validBk(args) {
+        function validSt(args) {
             for (var i = 0; i < names.length; ++i) {
-                if (args === names[i].getbksname) {
+                if (args === names[i].getstsname) {
                     return true;
                 }
             }
@@ -34,13 +34,14 @@
         var names = [];
 
         function init(args) {
-            bikeAPI.get(args).then(function (response) {
-                vm.bike = response.data.data;
+            stationAPI.get(args).then(function (response) {
+                vm.station = response.data.data;
+                vm.station.passRepeat = vm.station.password;
                 toast(response.data.message);
 
-                bikeAPI.getNames().then(function succesCallBack(resp) {
+                stationAPI.getNames().then(function succesCallBack(resp) {
                     names = resp.data.data.filter(function (args) {
-                        if (vm.bike.name !== args.getbksname) return args;
+                        if (vm.station.name !== args.getstsname) return args;
                     });
                 }, function errorCallback(error) {
                     toast("Erro no carregamento dos nomes");

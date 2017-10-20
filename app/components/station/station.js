@@ -9,7 +9,7 @@
         vm.getStations = getStations;
 
         vm.remove = remove;
-        // vm.change = change;
+        vm.edit = edit;
 
 
         vm.add = add;
@@ -20,6 +20,11 @@
                 }, function() {
                     toast('Cadastro cancelado!');
                 });
+        }
+        function edit(ev,args){
+            $mdDialog.show(modalService.confSt(ev,args)).then(function () {
+                getStations();
+            })
         }
 
         function remove(ev,args) {
@@ -51,16 +56,6 @@
             });
         }
         getStations();
-
-
-        /*function change(args){
-            stationAPI.changeSit(args).then(function (response) {
-                toast(response.data.message,'left');
-                getStations();
-            },function (error) {
-                toast(error.data.message);
-            })
-        }*/
 
         vm.tipState = tipState;
         vm.iconState = iconState;

@@ -20,7 +20,7 @@
                 });
         }
         function edit(ev,args){
-            $mdDialog.show(modalService.confBk(ev,args.idbike)).then(function () {
+            $mdDialog.show(modalService.confBk(ev,args)).then(function () {
                 getBikes();
             })
         }
