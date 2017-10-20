@@ -13,10 +13,14 @@
             getAllCount: _getAllCount, // feito
             getBySt: _getBySt, //feito
             getByBk: _getByBk, // feito
-            getByCli: _getByCli // feito
+            getByCli: _getByCli, // feito
+            getBikeOfCli: _getBikeOfCli
         };
         return service;
 
+        function _getBikeOfCli(id) {
+            return $http.get(config.baseUrl + "/transactions/cli/bk/" + id); // feito
+        }
         function _getByCli(id) {
             return $http.get(config.baseUrl + "/transactions/cli/" + id); // feito
         }

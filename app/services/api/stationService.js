@@ -15,12 +15,16 @@
             remove: _remove, // feito
             getLogs: _getLogs, // feito
             getLog: _getLog, // feito
+            getSlots: _getSlots,
             changeSit: _changeSit // feito
         };
         return service;
 
         function _changeSit(id) {
             return $http.get(config.baseUrl + "/stations/sit/" + id); // feito
+        }
+        function _getSlots(id) {
+            return $http.get(config.baseUrl + "/stations/slots/" + id); // feito
         }
         function _getLog(id) {
             return $http.get(config.baseUrl + "/stations/log/" + id); // feito
