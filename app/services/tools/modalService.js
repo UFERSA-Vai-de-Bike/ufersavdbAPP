@@ -11,6 +11,7 @@
                 addSt: _addSt,
                 addBk: _addBk,
                 confBk: _confBk,
+                confUser: _confUser,
                 profile: _profile
                 /*
                 novoModal: _novoModal //,
@@ -76,6 +77,17 @@
                     clickOutsideToClose: false
                 };
                 return confBk;
+            }
+
+            function _confUser(ev,args) {
+                var confUser = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Configuração"><config-user-component id="'+ args +'"></config-user-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return confUser;
             }
 
             /*controller: dialogController,

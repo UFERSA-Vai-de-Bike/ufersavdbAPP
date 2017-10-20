@@ -7,13 +7,8 @@
         var vm = this;
         vm.user = $rootScope.user;
         vm.add = add;
-        vm.editPass = editPass;
-
-        // vm.getUsers = getUsers;
-
-
+        vm.edit = edit;
         vm.remove = remove;
-        // vm.changeUser = changeUser;
 
 
         function add(ev) {
@@ -46,39 +41,10 @@
 
         }
 
-        function editPass(ev,args){
-            var confirm = $mdDialog.confirm()
-                .title('Alteração de senha')
-                .textContent('Deseja alterar senha de '+ args.username+ '?')
-                .ariaLabel('Edição')
-                .targetEvent(ev)
-                .ok('Sim')
-                .cancel('Não');
-
-            $mdDialog.show(confirm).then(function() {
-                var prompt = $mdDialog.prompt()
-                    .title('Qual a nova de '+ args.username +'?')
-                    .placeholder('Senha')
-                    .ariaLabel('Senha')
-                    .targetEvent(ev)
-                    .required(true)
-                    .ok('Alterar')
-                    .cancel('Cancelar');
-
-                $mdDialog.show(prompt).then(function(result) {
-                    args.password = result;
-                    userAPI.update(args).then(function (response) {
-                        toast(response.data.message);
-                    },function (error) {
-                        toast(error.data.message);
-                    })
-                }, function() {
-                    toast("Cancelado");
-                });
-
-            }, function() {
-
-            });
+        function edit(ev,args){
+            $mdDialog.show(modalService.confUser(ev,args)).then(function () {
+                getUsers();
+            })
         }
 
         /*userAPI.changeSit(args).then(function (response) {
