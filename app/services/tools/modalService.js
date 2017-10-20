@@ -10,6 +10,7 @@
                 signup: _signup,
                 addSt: _addSt,
                 addBk: _addBk,
+                confBk: _confBk,
                 profile: _profile
                 /*
                 novoModal: _novoModal //,
@@ -64,6 +65,17 @@
                     clickOutsideToClose: false
                 };
                 return addBk;
+            }
+
+            function _confBk(ev,args) {
+                var confBk = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Configuração"><config-bk-component id="'+ args +'"></config-bk-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return confBk;
             }
 
             /*controller: dialogController,

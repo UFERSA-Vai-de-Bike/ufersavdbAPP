@@ -8,8 +8,8 @@
 
         vm.getStations = getStations;
 
-        /*vm.remove = remove;
-        vm.change = change;*/
+        vm.remove = remove;
+        // vm.change = change;
 
 
         vm.add = add;
@@ -22,25 +22,24 @@
                 });
         }
 
-        function change(args){
-            stationAPI.changeSit(args).then(function (response) {
-                toast(response.data.message,'left');
-                getStations();
-            },function (error) {
-                toast(error.data.message);
-            })
-        }
+        function remove(ev,args) {
+            var confirm = $mdDialog.confirm()
+                .title('Remoção de Estação')
+                .textContent('Deseja remover '+ args.name+ '?')
+                .ariaLabel('Remoção')
+                .targetEvent(ev)
+                .ok('Sim')
+                .cancel('Não');
 
-        function remove(args) {
-            stationAPI.remove(args).then(function (response) {
-                toast(response.data.message);
-                vm.stations= vm.stations.filter(function (st) {
-                    if (st.idstation !== args) return st;
-                });
-                getStations();
-            },function (error) {
-                toast(error.data.message);
-            })
+            $mdDialog.show(confirm).then(function() {
+                stationAPI.remove(args.idstation).then(function (response) {
+                    toast(response.data.message);
+                    getStations();
+                },function (error) {
+                    toast(error.data.message);
+                })
+            });
+
         }
 
         function getStations() {
@@ -52,6 +51,16 @@
             });
         }
         getStations();
+
+
+        /*function change(args){
+            stationAPI.changeSit(args).then(function (response) {
+                toast(response.data.message,'left');
+                getStations();
+            },function (error) {
+                toast(error.data.message);
+            })
+        }*/
 
         vm.tipState = tipState;
         vm.iconState = iconState;

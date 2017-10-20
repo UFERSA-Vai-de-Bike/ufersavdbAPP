@@ -68,11 +68,11 @@
                             </ng-md-icon>
                         </td>
                         <td md-cell>
-                            <md-button class="md-icon-button md-primary" ng-click="vm.edit(bike.idbike)">
-                                <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
-                                <md-tooltip md-direction="left">Editar</md-tooltip>
+                            <md-button class="md-icon-button md-primary" ng-click="vm.edit($event,bike)">
+                                <ng-md-icon icon="settings" size="24"></ng-md-icon>
+                                <md-tooltip md-direction="left">Configurar</md-tooltip>
                             </md-button>
-                            <md-button class="md-icon-button md-accent" ng-click="vm.remove(bike.idbike)">
+                            <md-button class="md-icon-button md-accent" ng-click="vm.remove($event,bike)">
                                 <ng-md-icon icon="clear" size="24"></ng-md-icon>
                                 <md-tooltip md-direction="right">Remover</md-tooltip>
                             </md-button>

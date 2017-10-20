@@ -7,7 +7,7 @@
         var vm = this;
 
         vm.remove = remove;
-        vm.change = change;
+        vm.edit = edit;
 
         vm.add = add;
 
@@ -19,26 +19,29 @@
                     toast('Cadastro cancelado!');
                 });
         }
-
-        function change(args){
-            bikeAPI.changeSit(args).then(function (response) {
-                toast(response.data.message,'left');
+        function edit(ev,args){
+            $mdDialog.show(modalService.confBk(ev,args.idbike)).then(function () {
                 getBikes();
-            },function (error) {
-                toast(error.data.message);
             })
         }
+        function remove(ev,args) {
+            var confirm = $mdDialog.confirm()
+                .title('Remoção de Bicicleta')
+                .textContent('Deseja remover '+ args.name+ '?')
+                .ariaLabel('Remoção')
+                .targetEvent(ev)
+                .ok('Sim')
+                .cancel('Não');
 
-        function remove(args) {
-            bikeAPI.remove(args).then(function (response) {
-                toast(response.data.message);
-                vm.bikes = vm.bikes.filter(function (bike) {
-                    if (bike.idbike !== args) return bike;
-                });
-                getBikes();
-            },function (error) {
-                toast(error.data.message);
-            })
+            $mdDialog.show(confirm).then(function() {
+                bikeAPI.remove(args.idbike).then(function (response) {
+                    toast(response.data.message);
+                    getBikes();
+                },function (error) {
+                    toast(error.data.message);
+                })
+            });
+
         }
 
         function getBikes() {
@@ -50,7 +53,6 @@
             });
         }
         getBikes();
-
 
         vm.tipRide = tipRide;
         vm.iconRide = iconRide;
