@@ -7,7 +7,8 @@
         function modalService() {
 
             var service = {
-                signup: _signup
+                signup: _signup,
+                addSt: _addSt
                 /*
                 novoModal: _novoModal //,
 
@@ -29,6 +30,16 @@
                     clickOutsideToClose: false
                 };
                 return signup;
+            }
+            function _addSt(ev) {
+                var addSt = {
+                    //controller: dialogController, // SE NECESSÁRIO
+                    template: '<md-dialog aria-label="Cadastro"><form-st-component ></form-st-component></md-dialog>',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false
+                };
+                return addSt;
             }
 
 

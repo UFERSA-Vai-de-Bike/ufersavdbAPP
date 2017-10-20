@@ -2,18 +2,27 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('stationController', StationController);
-    StationController.$inject = ['$scope','stationAPI','$mdToast','$mdDialog','modalService','$mdSidenav']
-    function StationController($scope,stationAPI,$mdToast,$mdDialog,modalService,$mdSidenav){
+    StationController.$inject = ['$scope','stationAPI','$mdToast','$mdDialog','modalService']
+    function StationController($scope,stationAPI,$mdToast,$mdDialog,modalService){
         var vm = this;
 
         vm.getStations = getStations;
-        vm.tipState = tipState;
-        vm.iconState = iconState;
 
-        vm.removeSt = removeSt;
-        vm.changeSt = changeSt;
+        /*vm.remove = remove;
+        vm.change = change;*/
 
-        function changeSt(args){
+
+        vm.add = add;
+        function add(ev) {
+            $mdDialog.show(modalService.addSt(ev))
+                .then(function() {
+                    getStations();
+                }, function() {
+                    toast('Cadastro cancelado!');
+                });
+        }
+
+        function change(args){
             stationAPI.changeSit(args).then(function (response) {
                 toast(response.data.message,'left');
                 getStations();
@@ -22,7 +31,7 @@
             })
         }
 
-        function removeSt(args) {
+        function remove(args) {
             stationAPI.remove(args).then(function (response) {
                 toast(response.data.message);
                 vm.stations= vm.stations.filter(function (st) {
@@ -34,10 +43,39 @@
             })
         }
 
-        vm.formSt = formSt;
-        // var names = [];
-        function formSt() {
-            $mdSidenav('right').open();
+        function getStations() {
+            stationAPI.getAll().then(function (response) {
+                // toast(response.data.message);
+                vm.stations = response.data.data;
+            },function (error) {
+                toast(error.data.message);
+            });
+        }
+        getStations();
+
+        vm.tipState = tipState;
+        vm.iconState = iconState;
+        function iconState(args) {
+            if(args)
+                return 'cloud_done';
+            else
+                return 'cloud_off';
+        }
+        function tipState(args) {
+            if (args)
+                return "Operando";
+            else
+                return "Não operando";
+        }
+        function toast(message,side) {
+            if (typeof side == 'undefined')
+                side = 'right';
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top ' + side)
+                    .hideDelay(3000)
+            );
         }
 
         vm.filter = {
@@ -53,7 +91,6 @@
         };
 
         vm.removeFilter = removeFilter;
-
         function removeFilter() {
             vm.filter.show = false;
             vm.query.filter = '';
@@ -70,41 +107,6 @@
             if (!newVal)
                 vm.query.page = bookmark;
         });
-
-        function iconState(args) {
-            if(args)
-                return 'cloud_done';
-            else
-                return 'cloud_off';
-        }
-        function tipState(args) {
-            if (args)
-                return "Operando";
-            else
-                return "Não operando";
-        }
-
-        function getStations() {
-            stationAPI.getAll().then(function (response) {
-                // toast(response.data.message);
-                vm.stations = response.data.data;
-            },function (error) {
-                toast(error.data.message);
-            });
-        }
-
-        getStations();
-
-        function toast(message,side) {
-            if (typeof side == 'undefined')
-                side = 'right';
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position('top ' + side)
-                    .hideDelay(3000)
-            );
-        }
     }
 
 })(angular);

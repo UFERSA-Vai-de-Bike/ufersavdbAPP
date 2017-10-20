@@ -1,45 +1,43 @@
-<md-sidenav ng-init="vm.getNames()" flex="20" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-disable-backdrop>
-    <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Adicionar Estação</h1>
-    </md-toolbar>
-    <md-content layout-padding flex>
-        <form name="vm.stForm" ng-cloak novalidate>
-            <md-input-group layout='column' layout-align='space-around none'>
-                <md-input-container flex="100" flex-order="-1">
-                    <label>Estação</label>
-                    <input required ng-minlength="6" type="text" name="name" ng-model="vm.station.name">
-                    <div ng-messages="vm.stForm.name.$error">
-                        <div ng-message="required" ng-hide="vm.stForm.name.$valid">Campo obrigatório.</div>
-                        <div ng-message="minlength" ng-hide="vm.stForm.name.$valid">Mínimo de 6 caracteres</div>
-                    </div>
-                    <div ng-show="vm.validSt(vm.station.name)">
-                        <div ng-message="">Este nome de estação já foi escolhido!</div>
-                    </div>
-                </md-input-container>
-                <md-input-container flex="100" flex-order="0">
-                    <label>Senha</label>
-                    <input required ng-minlength="6" type="password" name="password" ng-model="vm.station.password">
-                    <div ng-messages="vm.stForm.password.$error" >
-                        <div ng-message="minlength" ng-hide="vm.stForm.password.$valid">Mínimo de 6 caracteres</div>
-                    </div>
-                </md-input-container>
-                <md-input-container flex="100" flex-order="1">
-                    <label>Repetir Senha</label>
-                    <input type="password" name="passRepeat" ng-model="vm.station.passRepeat"
-                           required match-password="password">
-                    <div ng-messages="vm.stForm.passRepeat.$error">
-                        <div ng-message="passwordMatch" ng-hide="vm.stForm.passRepeat.$valid">Senhas não coincidem.</div>
-                    </div>
-                </md-input-container>
-                <div layout="row" flex-order="20" layout-align="space-around center">
-                    <md-button type="reset" class="md-raised" ng-click="vm.cancel(true)">
-                        Cancelar
-                    </md-button>
-                    <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
-                               ng-disabled="vm.stForm.$invalid && vm.validSt(vm.station.name)"
-                               ng-click="vm.addSt(vm.station)">Cadastrar</md-button>
+<md-toolbar>
+    <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
+        <h2>Cadastro Estação</h2>
+        <md-button class="md-icon-button" ng-click="vm.cancel()" >
+            <ng-md-icon icon="close" size="24"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding flex>
+    <form name="vm.stForm" ng-cloak novalidate>
+        <md-input-group layout='column' layout-align='space-around none'>
+            <md-input-container flex="100" flex-order="-1">
+                <label>Estação</label>
+                <input required ng-minlength="6" type="text" name="name" ng-model="vm.station.name">
+                <div ng-messages="vm.stForm.name.$error">
+                    <div ng-message="required" ng-hide="vm.stForm.name.$valid">Campo obrigatório.</div>
+                    <div ng-message="minlength" ng-hide="vm.stForm.name.$valid">Mínimo de 6 caracteres</div>
                 </div>
-            </md-input-group>
-        </form>
-    </md-content>
-</md-sidenav>
+                <div ng-show="vm.validSt(vm.station.name)">
+                    <div ng-message="">Este nome de estação já foi escolhido!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-order="0">
+                <label>Senha</label>
+                <input required ng-minlength="6" type="password" name="password" ng-model="vm.station.password">
+                <div ng-messages="vm.stForm.password.$error" >
+                    <div ng-message="minlength" ng-hide="vm.stForm.password.$valid">Mínimo de 6 caracteres</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-order="1">
+                <label>Repetir Senha</label>
+                <input type="password" name="passRepeat" ng-model="vm.station.passRepeat"
+                       required match-password="password">
+                <div ng-messages="vm.stForm.passRepeat.$error">
+                    <div ng-message="passwordMatch" ng-hide="vm.stForm.passRepeat.$valid">Senhas não coincidem.</div>
+                </div>
+            </md-input-container>
+            <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
+                       ng-disabled="vm.stForm.$invalid && vm.validSt(vm.station.name)"
+                       ng-click="vm.addSt(vm.station)">Cadastrar</md-button>
+        </md-input-group>
+    </form>
+</md-content>

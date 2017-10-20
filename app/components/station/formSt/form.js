@@ -2,34 +2,28 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('formStController', FormStController);
-    FormStController.$inject = ['stationAPI','$mdToast','$mdSidenav'];
-    function FormStController(stationAPI,$mdToast,$mdSidenav) {
+    FormStController.$inject = ['stationAPI','$mdToast','$mdDialog'];
+    function FormStController(stationAPI,$mdToast,$mdDialog) {
         var vm = this;
 
-        vm.cancel = hide;
+        vm.cancel = cancel;
+
         vm.validSt = validSt;
         vm.addSt = addSt;
-
-        $mdSidenav('right').onClose(function () {
-            vm.stForm.form.$setPristine();
-        });
 
         function addSt(args) {
             console.log(" -- CADASTRAR -");
             console.log(JSON.stringify(args));
-
-                stationAPI.create(args).then(function successCallBack (response) {
-                    toast(response.data.message);
-                    vm.upd();
-                    hide(false);
-                }, function errorCallback (error) {
-                    console.log("Erro no cadastro: " + JSON.stringify(error));
-                    // toast(error.data.message);
-                });
+            stationAPI.create(args).then(function successCallBack (response) {
+                toast(response.data.message);
+                hide();
+            }, function errorCallback (error) {
+                console.log("Erro no cadastro: " + JSON.stringify(error));
+                toast(error.data.message);
+            });
         }
 
         var names = [];
-        vm.getNames = getNames;
         function getNames() {
             stationAPI.getNames().then(function succesCallBack(response) {
                 names = response.data.data;
@@ -38,6 +32,7 @@
                 toast("Erro no carregamento dos nomes");
             });
         }
+        getNames();
 
         function validSt(args) {
             for (var i = 0;i<names.length;++i){
@@ -47,12 +42,12 @@
             }
             return false;
         }
+        function cancel () {
+            $mdDialog.cancel();
+        }
 
-        function hide (ans) {
-            $mdSidenav('right').close().then(function () {
-                if (ans)
-                    toast("Cancelado");
-            });
+        function hide () {
+            $mdDialog.hide();
         }
 
         function toast (message) {

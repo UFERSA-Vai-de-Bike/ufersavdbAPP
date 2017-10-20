@@ -86,6 +86,13 @@
                     resolve: {
                         redirectIfNotAuthenticated: _redirectIfNotAuthenticated
                     }
+                })
+                .state('home.play', {
+                    url: '/play',
+                    component: 'simulatorComponent',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    }
                 });
             $urlRouterProvider.otherwise('/app');
         };

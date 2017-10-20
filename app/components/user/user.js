@@ -2,21 +2,27 @@
     "use strict";
     angular.module('ufersavdb')
         .controller('userController', UserController);
-    UserController.$inject = ['$rootScope','$scope','userAPI','$mdToast','$mdSidenav'];
-    function UserController($rootScope,$scope,userAPI,$mdToast,$mdSidenav){
+    UserController.$inject = ['$rootScope','$scope','userAPI','$mdToast','$mdDialog','modalService'];
+    function UserController($rootScope,$scope,userAPI,$mdToast,$mdDialog,modalService){
         var vm = this;
         vm.user = $rootScope.user;
-        vm.users;
-        vm.tipBike = tipBike;
-        vm.iconBike = iconBike;
-        vm.tipState = tipState;
-        vm.iconState = iconState;
-        vm.formUser = formUser;
 
-        vm.removeUser = removeUser;
-        vm.changeUser = changeUser;
+        // vm.getUsers = getUsers;
 
-        function changeUser(args){
+
+        vm.remove = remove;
+        // vm.changeUser = changeUser;
+
+        vm.add = add;
+        function add(ev) {
+            $mdDialog.show(modalService.signup(ev))
+                .then(function() {
+                    getUsers();
+                }, function() {
+                    toast('Cadastro cancelado!');
+                });
+        }
+        /*function changeUser(args){
             userAPI.changeSit(args).then(function (response) {
                 toast(response.data.message,'left');
                 vm.users= vm.users.filter(function (cli) {
@@ -26,9 +32,9 @@
             },function (error) {
                 toast(error.data.message);
             })
-        }
+        }*/
 
-        function removeUser(args) {
+        function remove(args) {
             userAPI.remove(args).then(function (response) {
                 toast(response.data.message);
                 getUsers();
@@ -37,8 +43,56 @@
             })
         }
 
-        function formUser() {
-            $mdSidenav('right').open();
+        function getUsers() {
+            userAPI.getAll().then(function (response) {
+                // toast(response.data.message);
+                vm.users = response.data.data;
+            },function (error) {
+                toast(error.data.message);
+            });
+        }
+        getUsers();
+
+
+        vm.tipBike = tipBike;
+        vm.iconBike = iconBike;
+        vm.tipState = tipState;
+        vm.iconState = iconState;
+
+        function iconState(args) {
+            if(args)
+                return 'mood';
+            else
+                return 'mood_bad';
+        }
+        function tipState(args) {
+            if (args)
+                return "Liberado";
+            else
+                return "Bloqueado";
+        }
+        function iconBike(args) {
+            if(args)
+                return 'directions_bike';
+            else
+                return 'directions_walk';
+        }
+        function tipBike(args) {
+            if (args)
+                return "Está usando";
+            else
+                return "Não está usando"
+        }
+
+        function toast(message,side) {
+            if (typeof side == 'undefined')
+                side = 'right';
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top ' + side)
+                    .hideDelay(3000)
+            );
         }
 
         vm.filter = {
@@ -71,54 +125,6 @@
             if (!newVal)
                 vm.query.page = bookmark;
         });
-
-        function iconState(args) {
-            if(args)
-                return 'mood';
-            else
-                return 'mood_bad';
-        }
-        function tipState(args) {
-            if (args)
-                return "Liberado";
-            else
-                return "Bloqueado";
-        }
-        function iconBike(args) {
-            if(args)
-                return 'directions_bike';
-            else
-                return 'directions_walk';
-        }
-        function tipBike(args) {
-            if (args)
-                return "Está usando";
-            else
-                return "Não está usando"
-        }
-
-        function getUsers() {
-            userAPI.getAll().then(function (response) {
-                // toast(response.data.message);
-                vm.users = response.data.data;
-            },function (error) {
-                toast(error.data.message);
-            });
-        }
-
-        vm.getUsers = getUsers;
-        getUsers();
-
-        function toast(message,side) {
-            if (typeof side == 'undefined')
-                side = 'right';
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position('top ' + side)
-                    .hideDelay(3000)
-            );
-        }
     }
 
 })(angular);

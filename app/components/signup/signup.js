@@ -17,6 +17,7 @@
             "phone":"99976-8606"
         };
 
+        vm.maxDate = new Date();
         vm.validUser = validUser;
         vm.cancel = cancel;
         vm.signUp = signUp;

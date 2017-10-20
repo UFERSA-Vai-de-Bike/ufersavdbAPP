@@ -9,11 +9,13 @@
                            type="button" ng-transclude ng-click="vm.filter.show = true"
                            aria-label="filter_list">
                     <ng-md-icon icon="filter_list"></ng-md-icon>
+                    <md-tooltip md-direction="left">Pesquisar</md-tooltip>
                     <div class="md-ripple-container"></div>
                 </md-button>
                 <md-button class="md-icon-button md-button md-ink-ripple"
-                           type="button" ng-transclude ng-click="vm.formBk()"
+                           type="button" ng-transclude ng-click="vm.add()"
                            aria-label="add_user">
+                    <md-tooltip md-direction="right">Cadastrar</md-tooltip>
                     <ng-md-icon icon="add"></ng-md-icon>
                     <div class="md-ripple-container"></div>
                 </md-button>
@@ -44,9 +46,6 @@
                     <th md-column md-order-by="name">
                         <span>Nome</span>
                     </th>
-                    <th md-column md-order-by="regdate">
-                        <span>Registro</span>
-                    </th>
                     <th md-column md-order-by="onride">
                         <span>Status</span>
                     </th>
@@ -54,25 +53,28 @@
                 <tbody>
                     <tr md-row ng-repeat="bike in vm.bikes | filter: vm.query.filter | orderBy: vm.query.order
                         | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit">
-                        <td md-cell ng-click="vm.changeBk(bike.idbike)">
+                        <td md-cell>
                             <ng-md-icon icon="{{vm.iconState(bike.state)}}" size="28">
                                 <md-tooltip md-direction="right">{{vm.tipState(bike.state)}}</md-tooltip>
                             </ng-md-icon>
                         </td>
-                        <td md-cell>{{bike.name}}</td>
-                            <td md-cell>
-                                {{bike.regdate | date:'dd/MM/yyyy hh:mm'}}
-                            </td>
+                        <td md-cell ng-click="vm.showInfo(bike.idbike)">
+                            {{bike.name}}
+                            <md-tooltip md-direction="left">Detalhes</md-tooltip>
+                        </td>
                         <td md-cell>
-                            <ng-md-icon icon="{{vm.iconRide(bike.onride)}}" size="28">
+                            <ng-md-icon icon="{{vm.iconRide(bike.onride)}}" size="24">
                                 <md-tooltip md-direction="right">{{vm.tipRide(bike.onride)}}</md-tooltip>
                             </ng-md-icon>
                         </td>
                         <td md-cell>
-                            <md-button ng-click="vm.removeBk(bike.idbike)">
-                                <ng-md-icon icon="remove_circle" size="24">
-                                    <md-tooltip md-direction="right">Remover</md-tooltip>
-                                </ng-md-icon>
+                            <md-button class="md-icon-button md-primary" ng-click="vm.edit(bike.idbike)">
+                                <ng-md-icon icon="mode_edit" size="24"></ng-md-icon>
+                                <md-tooltip md-direction="left">Editar</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button md-accent" ng-click="vm.remove(bike.idbike)">
+                                <ng-md-icon icon="clear" size="24"></ng-md-icon>
+                                <md-tooltip md-direction="right">Remover</md-tooltip>
                             </md-button>
                         </td>
                     </tr>
@@ -82,6 +84,6 @@
         <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]"
                              md-page="vm.query.page" md-total="{{vm.bikes.length}}" md-page-select></md-table-pagination>
     </md-card>
-    <!--<ui-view></ui-view>-->
 </div>
-<form-bk-component upd="vm.getBikes" flex></form-bk-component>
+<!--<ui-view></ui-view>-->
+<!--<form-bk-component upd="vm.getBikes" flex></form-bk-component>-->
