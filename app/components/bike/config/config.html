@@ -1,0 +1,31 @@
+<md-toolbar>
+    <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
+        <h2>Configurar Bike</h2>
+        <md-button class="md-icon-button" ng-click="vm.cancel()" >
+            <ng-md-icon icon="close" size="24"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding flex>
+    <form name="vm.bikeForm" ng-cloak novalidate>
+        <md-input-group layout='column' layout-align='space-around none'>
+            <md-input-container flex="100" flex-order="-1">
+                <label>Bicicleta</label>
+                <input required ng-minlength="6" type="text" name="name" ng-model="vm.bike.name">
+                <div ng-messages="vm.bikeForm.name.$error">
+                    <div ng-message="required" ng-hide="vm.bikeForm.name.$valid">Campo obrigatório.</div>
+                    <div ng-message="minlength" ng-hide="vm.bikeForm.name.$valid">Mínimo de 6 caracteres</div>
+                </div>
+                <div ng-show="vm.validBk(vm.bike.name)">
+                    <div ng-message="">Esse nome de bike já foi escolhido!</div>
+                </div>
+            </md-input-container>
+            <md-switch ng-model="vm.bike.state" aria-label="Interruptor" md-invert>
+                Estado
+            </md-switch>
+            <md-button type="submit" flex="100" flex-order="20" class="md-raised md-warn"
+                       ng-disabled="vm.bikeForm.$invalid || vm.validBk(vm.bike.name)"
+                       ng-click="vm.upd(vm.bike)">Alterar</md-button>
+        </md-input-group>
+    </form>
+</md-content>

@@ -1,0 +1,46 @@
+<md-toolbar>
+    <div layout="row" layout-align="space-between center" class="md-toolbar-tools">
+        <h2>Configurar Usuário</h2>
+        <md-button class="md-icon-button" ng-click="vm.cancel()" >
+            <ng-md-icon icon="close" size="24"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content layout-padding flex>
+    <form name="firstForm" ng-cloak novalidate>
+        <md-input-group layout='column' layout-align='space-around none'>
+            <md-input-container flex="100" flex-order="-1">
+                <label>Usuário</label>
+                <input required ng-minlength="6" type="text" name="username" ng-model="vm.user.username">
+                <div ng-messages="firstForm.username.$error">
+                    <div ng-message="required" ng-hide="firstForm.username.$valid">Campo obrigatório.</div>
+                    <div ng-message="minlength" ng-hide="firstForm.username.$valid">Mínimo de 6 caracteres</div>
+                </div>
+                <div ng-show="vm.validUser(vm.user.username)">
+                    <div ng-message="">Este nome de usuário já foi escolhido!</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-order="0">
+                <label>Senha</label>
+                <input required ng-minlength="6" type="password" name="password" ng-model="vm.user.password">
+                <div ng-messages="firstForm.password.$error" >
+                    <div ng-message="minlength" ng-hide="firstForm.password.$valid">Mínimo de 6 caracteres</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" flex-order="1">
+                <label>Repetir Senha</label>
+                <input type="password" name="passRepeat" ng-model="vm.user.passRepeat"
+                       required match-password="password">
+                <div ng-messages="firstForm.passRepeat.$error">
+                    <div ng-message="passwordMatch" ng-hide="firstForm.passRepeat.$valid">Senhas não coincidem.</div>
+                </div>
+            </md-input-container>
+            <md-switch flex-order="19" ng-model="vm.user.state" aria-label="Interruptor" md-invert>
+                Estado
+            </md-switch>
+            <md-button type="submit" flex="100" flex-order="20" class="md-raised md-primary"
+                       ng-disabled="firstForm.$invalid || vm.validUser(vm.user.username)"
+                       ng-click="vm.upd(vm.user)">Alterar</md-button>
+        </md-input-group>
+    </form>
+</md-content>
