@@ -1,0 +1,57 @@
+<div flex layout="row" layout-align="space-around center">
+    <md-card flex="40">
+        <md-toolbar class="md-table-toolbar md-default"
+                    aria-hidden="false" style>
+            <div class="md-toolbar-tools">
+                <h2 class="md-title">Simulador</h2>
+                <div flex class="flex"></div>
+            </div>
+        </md-toolbar>
+        <md-card-content>
+            <div layout="column" layout-align="space-between center">
+                <div flex layout="row" layout-align="space-around center">
+                    <md-input-container flex-order="-2">
+                        <label>Usuário</label>
+                        <md-select ng-model="vm.loan.user">
+                            <md-option ng-repeat="user in vm.usersOut" ng-value="user.idcli">{{user.username}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex-order="-1">
+                        <label>Estação</label>
+                        <md-select ng-model="vm.loan.station">
+                            <md-option ng-repeat="station in vm.stationsOut" ng-value="station.idstation">{{station.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex-order="0">
+                        <label>Bike</label>
+                        <md-select ng-model="vm.loan.bike">
+                            <md-option ng-repeat="bike in vm.bikes" ng-value="bike">{{bike.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-raised" ng-disabled="vm.blockOp1" ng-click="vm.doLoan(vm.loan)">Empréstimo</md-button>
+                </div>
+                <div flex layout="row" layout-align="space-around center">
+                    <md-input-container flex-order="-2">
+                        <label>Usuário</label>
+                        <md-select ng-model="vm.return.user">
+                            <md-option ng-repeat="user in vm.usersIn" ng-value="user.idcli">{{user.username}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex-order="-1">
+                        <label>Estação</label>
+                        <md-select ng-model="vm.return.station">
+                            <md-option ng-repeat="station in vm.stationsIn" ng-value="station.idstation">{{station.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex-order="0">
+                        <label>Slot</label>
+                        <md-select ng-model="vm.return.slot">
+                            <md-option ng-repeat="slot in vm.slots" ng-value="slot.slot">{{slot.slot}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-raised" ng-disabled="vm.blockOp2" ng-click="vm.doReturn(vm.return)">Devolução</md-button>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

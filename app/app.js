@@ -9,11 +9,11 @@
     appCtrl.$inject = ['$rootScope','$state','userAPI','storeService','$mdDialog','$mdToast','modalService'];
     function appCtrl($rootScope,$state,userAPI,storeService,$mdDialog,$mdToast,modalService) {
         var vm = this;
-        var foo = {
+        /*var foo = {
             username: "underaid",
             password: "killingin88"
-        };
-        vm.user = foo;
+        };*/
+        // vm.user = foo;
         vm.login = login;
         vm.signUp = signUp;
 
